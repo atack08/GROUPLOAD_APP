@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/descripcionServidor"
@@ -10,13 +11,14 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:textColor="#000"
-        android:fontFamily="serif-monospace"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:text="prueba-10,13,13,1326"/>
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/spain"/>
+        android:src="@mipmap/spain"
+        android:layout_marginLeft="15dp"/>
 
 </LinearLayout>
