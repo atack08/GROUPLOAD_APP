@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".ServerSelect">
+
+        </activity>
+        <activity android:name=".RolSelection">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
