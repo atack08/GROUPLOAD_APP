@@ -40,6 +40,6 @@ public class Servidor {
 
     @Override
     public String toString() {
-        return this.nombreServidor + "-" + this.ipServidor;
+        return this.nombreServidor + " : " + this.ipServidor;
     }
 }

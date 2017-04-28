@@ -51,20 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:hint="Usuario"
-                android:fontFamily="serif"
-                android:inputType="textAutoComplete"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
-                android:fontFamily="serif"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:fontFamily="serif"
                 android:hint="Crear Nombre Grupo"/>
             <EditText

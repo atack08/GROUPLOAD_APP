@@ -16,11 +16,11 @@
         android:gravity="center">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/borde_linea_blanca">
+            android:gravity="center">
 
             <TextView
                 android:layout_width="match_parent"
@@ -28,9 +28,18 @@
                 android:text="Seleccione Servidor"
                 android:textColor="#FFF"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:textStyle="bold"
-                android:fontFamily="serif" />
+                android:fontFamily="serif"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"/>
+
+            <Spinner
+                android:id="@+id/comboServidores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                />
 
         </LinearLayout>
 
@@ -41,20 +50,84 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <Spinner
-                android:id="@+id/comboServidores"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CONECTAR"/>
+                android:orientation="vertical">
+
+
+               <TableLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp">
+
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Usuario: "
+                            android:textSize="16dp"
+                            android:fontFamily="serif"
+                            android:textAlignment="center"
+                            android:textColor="#FFF"
+                            />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:fontFamily="serif"
+                            android:textSize="16dp"
+                            android:inputType="textAutoComplete"
+                            android:layout_weight="2"
+                            android:textColor="#000"/>
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Password: "
+                            android:textSize="16dp"
+                            android:fontFamily="serif"
+                            android:textAlignment="center"
+                            android:textColor="#FFF"/>
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:inputType="textPassword"
+                            android:fontFamily="serif"
+                            android:layout_weight="2"
+                            android:textColor="#000"/>
+
+
+                    </TableRow>
+
+               </TableLayout>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CONECTAR"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="conectar"/>
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
-
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
