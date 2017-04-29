@@ -3,6 +3,7 @@ package com.example.atack08.groupload_app;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,13 +13,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 import BEANS.Servidor;
+import BEANS.Usuario;
 
 public class ServerSelect extends AppCompatActivity {
 
@@ -56,7 +60,7 @@ public class ServerSelect extends AppCompatActivity {
 
 
         //UNA VEZ CONCEDIDOS PERMISOS INICIALIZAMOS LA CLASE QUE CONTROLA LA RED WAN
-        redWAN = new OperacionesInternet(this, botonConectar);
+        redWAN = new OperacionesInternet(this, botonConectar, this);
 
     }
 
@@ -65,6 +69,24 @@ public class ServerSelect extends AppCompatActivity {
     //COMPRUEBA EL FORMULARIO Y REALIZA LA CONEXIÓN AL SERVIDOR
     public void conectar(View v){
 
+        //RESCATAMOS LOS DATOS DEL FORMULARIO
+        String nick = ((EditText)findViewById(R.id.editUser)).getText().toString();
+        String pass = ((EditText)findViewById(R.id.editPassword)).getText().toString();
+
+        if(nick.equals("") || pass.equals(""))
+            mostrarPanelError("Introduzca usuario y contraseña para conectarse");
+        else{
+
+            //RECATAMOS SERVIDOR ELEGIDO
+            Servidor servidor = (Servidor) comboServidor.getSelectedItem();
+            //CONSTRUIMOS EL USUARIO
+            Usuario user = new Usuario(nick,pass,"");
+
+            //REALIZAMOS EL LOGEO
+            redWAN.logearEnServidor(servidor,user);
+
+
+        }
 
 
     }
@@ -145,10 +167,6 @@ public class ServerSelect extends AppCompatActivity {
         }
 
 
-
-        
-
-
     }
 
     @Override
@@ -172,6 +190,18 @@ public class ServerSelect extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    //MÉTODO PARA CAMBIAR DE VENTANA DENTRO DE LA APLICACIÓN
+    public void cambiarActividadLogin(Servidor server, Usuario user){
+
+        Intent intent = new Intent(this, RolSelection.class);
+
+        intent.putExtra("servidor", server);
+        intent.putExtra("usuario", user);
+
+        startActivity(intent);
+
     }
 
 

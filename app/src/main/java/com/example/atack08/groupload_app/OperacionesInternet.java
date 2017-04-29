@@ -1,5 +1,6 @@
 package com.example.atack08.groupload_app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,7 +10,9 @@ import android.os.AsyncTask;
 import android.widget.Button;
 
 import BEANS.Servidor;
+import BEANS.Usuario;
 import HILOS_SERVICIOS.Estado_Servidor;
+import HILOS_SERVICIOS.Login_Servidor;
 
 
 public class OperacionesInternet {
@@ -18,8 +21,11 @@ public class OperacionesInternet {
     private boolean isOnline;
     private Context context;
     private Button botonConectar;
+    private ServerSelect activity;
 
-    public OperacionesInternet(Context context, Button botonConectar){
+    public OperacionesInternet(Context context, Button botonConectar,ServerSelect ss ){
+
+        this.activity = ss;
         this.context = context;
         this.botonConectar = botonConectar;
     }
@@ -38,15 +44,22 @@ public class OperacionesInternet {
         return actNetInfo.isConnected();
     }
 
+    //MÉTODO QUE REALIZA EL LOGEO EN UN SERVIDOR Y CAMBIA DE ACTIVIDAD
+    public synchronized void logearEnServidor(Servidor server, Usuario user){
+
+        Login_Servidor logeo = new Login_Servidor(server, this);
+        logeo.execute(user);
+
+    }
+
     //MÉTODO PARA COMPROBAR SI UN SERVIDOR ESTÁ ONLINE
-    public  synchronized void pedirConectividadServidor(Servidor servidor){
+    public synchronized void pedirConectividadServidor(Servidor servidor){
 
         Estado_Servidor es = new Estado_Servidor(this);
         es.execute(servidor);
     }
 
     
-
 
     //MÉTODO PARA MOSTRAR INFO
     public void mostrarPanelInfo(String msg){
@@ -90,5 +103,9 @@ public class OperacionesInternet {
 
     public Button getBotonConectar() {
         return botonConectar;
+    }
+
+    public ServerSelect getActivity() {
+        return activity;
     }
 }

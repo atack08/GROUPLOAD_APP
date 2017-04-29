@@ -58,5 +58,6 @@ public class Estado_Servidor extends AsyncTask<Servidor, Integer,Boolean> {
             oi.mostrarPanelError("El servidor NO está disponible o no tienes conexión a internet");
 
 
+
     }
 }

@@ -1,6 +1,8 @@
 package BEANS;
 
-public class Servidor {
+import java.io.Serializable;
+
+public class Servidor implements Serializable{
 
     private String nombreServidor;
     private String ipServidor;

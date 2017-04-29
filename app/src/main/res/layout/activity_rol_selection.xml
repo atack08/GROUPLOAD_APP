@@ -58,12 +58,14 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="serif"
+                android:inputType="textPassword"
                 android:hint="Crear Contraseña Grupo"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="serif"
+                android:inputType="textPassword"
                 android:hint="Confirmar Contraseña Grupo"/>
 
             <LinearLayout
