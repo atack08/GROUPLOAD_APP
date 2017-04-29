@@ -113,12 +113,21 @@
                </TableLayout>
 
 
-                <Button
+                <Button android:id="@+id/botonConectar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CONECTAR"
                     android:layout_gravity="center_horizontal"
-                    android:onClick="conectar"/>
+                    android:onClick="conectar"
+                    android:enabled="false"/>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="COMPROBAR SERVIDOR"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="comprobarServidor"/>
 
 
             </LinearLayout>

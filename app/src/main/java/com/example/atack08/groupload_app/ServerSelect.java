@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -24,7 +25,11 @@ public class ServerSelect extends AppCompatActivity {
     //CONSTANTES PARA PERMISOS
     private final int PERMISO_WRITE_READ_EXTERNAL_STORAGE = 0 ;
 
+    //CLASE QUE CONTROLA LAS OPERACIONES DE RED WAN
+    private OperacionesInternet redWAN;
+
     private Spinner comboServidor;
+    private Button botonConectar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +41,22 @@ public class ServerSelect extends AppCompatActivity {
 
         //CARGAMOS LOS SERVIDORES EN LA EL COMBO
         //NOTA - SI HUBIESE MÁS SERVIDORES SE PODRÍA CREAR UN FICHERO XML PARA ALMACENARLOS
-        Servidor s1 = new Servidor("HALL-10000","10.10.120.155","España");
-        Servidor s2 = new Servidor("RedIris","10.10.10.101","España");
+        Servidor s1 = new Servidor("HALL-10000","89.131.153.38","España");
         ArrayList<Servidor> listaS = new ArrayList<>();
-        listaS.add(s1);listaS.add(s2);
+        listaS.add(s1);
         ArrayAdapter<Servidor> adapter = new ArrayAdapter<>(this,R.layout.layout_spinner_servidor,R.id.descripcionServidor,listaS);
 
         comboServidor.setAdapter(adapter);
 
+        //RECUPERAMOS COMPONENTES DE LA INTERFACE GRÁFICA
+        botonConectar = (Button)findViewById(R.id.botonConectar);
+
         //COMPROBAMOS PERMISOS
         comprobarPermisos();
+
+
+        //UNA VEZ CONCEDIDOS PERMISOS INICIALIZAMOS LA CLASE QUE CONTROLA LA RED WAN
+        redWAN = new OperacionesInternet(this, botonConectar);
 
     }
 
@@ -53,6 +64,24 @@ public class ServerSelect extends AppCompatActivity {
     //MÉTODO PARA CONTROLAR EL BOTÓN CONECTAR
     //COMPRUEBA EL FORMULARIO Y REALIZA LA CONEXIÓN AL SERVIDOR
     public void conectar(View v){
+
+
+
+    }
+
+
+    //MÉTODO QUE COMPRUEBA EL ESTADO DE UN SERVIDOR
+    public void comprobarServidor(View v){
+
+        //RECATAMOS SERVIDOR ELEGIDO
+        Servidor servidor = (Servidor) comboServidor.getSelectedItem();
+
+        //COMPROBAMOS SI TENEMOS CONECTIVIDAD DE RED Y POSTERIORMENTE SI EL SERVIDOR ESTÁ ONLINE
+        if(redWAN.pedirConectividad()) {
+            redWAN.pedirConectividadServidor(servidor);
+        }
+        else
+            mostrarPanelError("No tienes dispositivos de red habilitados.");
 
     }
 
@@ -78,7 +107,7 @@ public class ServerSelect extends AppCompatActivity {
     }
 
     //MÉTODO PARA MOSTRAR INFO
-    public void mostrarPanelPermisos(String msg){
+    public void mostrarPanelInfo(String msg){
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         dialog.setMessage(msg);
