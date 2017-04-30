@@ -65,7 +65,6 @@
                    android:layout_marginLeft="20dp"
                    >
 
-
                     <TableRow>
 
                         <TextView
