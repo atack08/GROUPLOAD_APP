@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.atack08.groupload_app.ServerSelect"
+    android:background="@drawable/degradado"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:background="@color/azulGoogle"
         android:gravity="center">
 
         <LinearLayout
@@ -60,7 +60,10 @@
                <TableLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:layout_margin="10dp">
+                   android:layout_marginBottom="40dp"
+                   android:layout_marginRight="20dp"
+                   android:layout_marginLeft="20dp"
+                   >
 
 
                     <TableRow>
@@ -71,7 +74,7 @@
                             android:text="Usuario: "
                             android:textSize="16dp"
                             android:fontFamily="serif"
-                            android:textAlignment="center"
+                            android:textAlignment="textStart"
                             android:textColor="#FFF"
                             />
 
@@ -114,20 +117,24 @@
 
 
                 <Button android:id="@+id/botonConectar"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="CONECTAR"
                     android:layout_gravity="center_horizontal"
                     android:onClick="conectar"
-                    android:enabled="false"/>
+                    android:enabled="false"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"/>
 
 
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="COMPROBAR SERVIDOR"
                     android:layout_gravity="center_horizontal"
-                    android:onClick="comprobarServidor"/>
+                    android:onClick="comprobarServidor"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"/>
 
 
             </LinearLayout>
@@ -141,14 +148,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/azulGoogle">
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="GROUPLOAD"
-            android:textColor="#FFF"
+            android:textColor="@color/azulGoogle"
             android:gravity="center_vertical"
             android:textAlignment="center"
             android:textSize="30dp"
