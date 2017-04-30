@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.atack08.groupload_app.RolSelection"
     android:orientation="vertical"
-    android:background="@color/azulGoogle">
+    android:background="@drawable/degradado">
 
     <LinearLayout
         android:orientation="vertical"
@@ -19,19 +19,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CREAR GRUPO"
-            android:onClick="formularioCreacionGrupo"/>
+            android:onClick="formularioCreacionGrupo"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="UNIRSE A GRUPO"
-            android:onClick="formularioUnionGrupo"/>
+            android:onClick="formularioUnionGrupo"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="COMPARTIR DESCARGA"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
 
     </LinearLayout>
 
@@ -90,13 +96,14 @@
 
             </LinearLayout>
 
-
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="CREAR"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"/>
 
         </LinearLayout>
 
@@ -106,6 +113,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="invisible">
+
+
+            <ListView android:id="@+id/listaGrupos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
 
         </LinearLayout>
 
@@ -123,7 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="GROUPLOAD"
-            android:textColor="#FFF"
+            android:textColor="@color/azulGoogle"
             android:textAlignment="center"
             android:textSize="30dp"
             android:textStyle="bold"
