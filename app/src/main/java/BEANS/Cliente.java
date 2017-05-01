@@ -7,6 +7,7 @@ public class Cliente implements Serializable {
     private Usuario user;
     private String ip;
     private int porcentaje_descarga;
+    static final long serialVersionUID =1L;
 
     public Cliente(Usuario user, String ip, int porcentaje_descarga) {
         this.user = user;

@@ -200,6 +200,7 @@ public class ServerSelect extends AppCompatActivity {
         intent.putExtra("servidor", server);
         intent.putExtra("usuario", user);
 
+
         startActivity(intent);
 
     }

@@ -21,16 +21,19 @@ import java.util.ArrayList;
 import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
+import HILOS_SERVICIOS.Lista_Grupos_Servidor;
 
 public class UnirseGrupo extends AppCompatActivity {
 
     //VARIABLES DE SESIÓN
     private Servidor servidor;
     private Usuario usuario;
+    private OperacionesInternet oi;
 
     //LISTA CON LOS GRUPOS ACTIVOS EN EL SERVIDOR CONECTADO
     private ArrayList<Grupo> listaG;
     private ListView listaGrupos;
+    private AdaptadorGrupos adaptadorLista;
 
     //GRUPO SELECCIONADO DE LA LISTA
     private Grupo grupoSeleccionado;
@@ -42,20 +45,17 @@ public class UnirseGrupo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unirse_grupo);
 
-        /*//RECUPERAMOS DEL INTENT EL USUARIO Y EL SERVIDOR LOGEADOS
+        //RECUPERAMOS DEL INTENT EL USUARIO Y EL SERVIDOR LOGEADOS
         Intent intent = getIntent();
         servidor = (Servidor)intent.getExtras().getSerializable("servidor");
-        usuario = (Usuario)intent.getExtras().getSerializable("usuario");*/
+        usuario = (Usuario)intent.getExtras().getSerializable("usuario");
 
         //RESCATAMOS EL LABEL DEL GRUPO SELECCIONADO
         labelGrupoSeleccionado = (TextView)findViewById(R.id.labelGrupoSeleccionado);
 
         //CARGAMOS LA LISTA DE GRUPOS DISPONIBLES EN EL SERVIDOR
-        pedirListaGruposServidor();
-        //CARGAMOS LA LISTA EN EL LISTVIEW
-        AdaptadorGrupos adaptador = new AdaptadorGrupos(this,listaG);
         listaGrupos = (ListView) findViewById(R.id.listViewGrupos);
-        listaGrupos.setAdapter(adaptador);
+        pedirListaGruposServidor(null);
 
         //AÑADIMOS EL ESCUCHADOR A LA LISTVIEW
         listaGrupos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,19 +71,21 @@ public class UnirseGrupo extends AppCompatActivity {
 
 
     //MÉTODO QUE PEDIRÁ AL SERVIDOR LA LISTA DE GRUPOS
-    public void pedirListaGruposServidor(){
+    public void pedirListaGruposServidor(View v){
 
-        listaG = new ArrayList<>();
-        Grupo g1 = new Grupo("Metero 25 alpha", "esteropa");
-        Grupo g2 = new Grupo("Farsantes Madrid ","dfddfdf");
-        Grupo g3 = new Grupo("Farsantes Barcelona ","dfddfdf");
-        Grupo g4 = new Grupo("Gruo Bichos 22 ","dfddfdf");
-        Grupo g5 = new Grupo("Gruo Bichos 22 ","dfddfdf");
-        Grupo g6 = new Grupo("Gruo Bichos 22 ","dfddfdf");
-        Grupo g7 = new Grupo("Gruo Bichos 22 ","dfddfdf");
+        //EJECUTAMOS TAREA ASINCRONA PARA PEDIR AL SERVIDOR LA LISTA DE GRUPOS
+        Lista_Grupos_Servidor  tareaGrupos= new Lista_Grupos_Servidor(usuario,servidor,this);
+        tareaGrupos.execute();
 
-        listaG.add(g1); listaG.add(g2); listaG.add(g3); listaG.add(g4);
+    }
 
+    //METODO PARA CONFECCIONAR LA VISTA DE LA LISTA
+    public void configurarVistaLista(ArrayList<Grupo> listaG){
+
+        Toast.makeText(this, "LISTA CONTIENE " + String.valueOf(listaG.size()) + " GRUPOS", Toast.LENGTH_LONG).show();
+        this.listaG = listaG;
+        adaptadorLista =  new AdaptadorGrupos(this,listaG);
+        listaGrupos.setAdapter(adaptadorLista);
 
     }
 
@@ -145,13 +147,14 @@ public class UnirseGrupo extends AppCompatActivity {
             lblNombre.setText(listaG.get(position).getAlias());
 
             TextView lblNumUsuarios = (TextView)item.findViewById(R.id.listaLabelNumeroUsuario);
-            lblNumUsuarios.setText("Número de usuarios: 4");// + listaG.get(position).getListaClientes().size());
+            lblNumUsuarios.setText("Número de usuarios: " + listaG.get(position).getListaClientes().size());
 
             TextView lblPorcentaje = (TextView)item.findViewById(R.id.listaLabelPorcentajeLibre);
-            lblPorcentaje.setText("Porcentaje asignado: 80%"); //+ listaG.get(position).getParticipacion() + " %");
+            lblPorcentaje.setText("Porcentaje asignado: " + listaG.get(position).getParticipacion() + " %");
 
 
             return (item);
         }
     }
+
 }

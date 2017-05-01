@@ -10,6 +10,7 @@ public class Grupo implements Serializable {
     private String password;
     private ArrayList<Cliente> listaClientes;
     private int participacion; //el porcentaje de descarga ya asignado
+    static final long serialVersionUID =1L;
 
     public Grupo(String alias, String password) {
         this.alias = alias;

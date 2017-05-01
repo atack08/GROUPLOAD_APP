@@ -94,6 +94,28 @@ public class RolSelection extends AppCompatActivity {
 
     }
 
+    //MÉTODO QUE CAMBIA DE ACTIVIDAD CUANDO SE ELIGE UNIRSE A GRUPO
+    public void unirseAGrupo(View v){
+
+        Intent intent = new Intent(this, UnirseGrupo.class);
+
+        intent.putExtra("servidor", servidor);
+        intent.putExtra("usuario", usuario);
+
+        startActivity(intent);
+    }
+
+    //MÉTODO QUE CAMBIA DE ACTIVIDAD CUANDO SE ELIGE CREAR GRUPO
+    public void crearGrupo(View v){
+
+        Intent intent = new Intent(this, CrearGrupo.class);
+
+        intent.putExtra("servidor", servidor);
+        intent.putExtra("usuario", usuario);
+
+        startActivity(intent);
+    }
+
 
 
 }

@@ -63,7 +63,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="UNIRSE AL GRUPO"
-            android:onClick="formularioCreacionGrupo"
+            android:onClick=""
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REFRESCAR LISTA"
+            android:onClick="pedirListaGruposServidor"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
 

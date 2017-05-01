@@ -8,20 +8,27 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.widget.Button;
+import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
 import HILOS_SERVICIOS.Estado_Servidor;
+import HILOS_SERVICIOS.Lista_Grupos_Servidor;
 import HILOS_SERVICIOS.Login_Servidor;
 
 
-public class OperacionesInternet {
+public class  OperacionesInternet {
 
     private Estado_Servidor estadoServidor; //HILO QUE COMPRUEBA ESTADO DEL SERVIDOR
     private boolean isOnline;
     private Context context;
     private Button botonConectar;
     private ServerSelect activity;
+
 
     public OperacionesInternet(Context context, Button botonConectar,ServerSelect ss ){
 
@@ -108,4 +115,6 @@ public class OperacionesInternet {
     public ServerSelect getActivity() {
         return activity;
     }
+
+
 }

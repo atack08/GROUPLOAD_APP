@@ -6,6 +6,7 @@ import android.widget.Button;
 import com.example.atack08.groupload_app.OperacionesInternet;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -14,7 +15,7 @@ import BEANS.Servidor;
 
 
 
-public class Estado_Servidor extends AsyncTask<Servidor, Integer,Boolean> {
+public class Estado_Servidor extends AsyncTask<Servidor, Integer,Boolean>{
 
     private final int PUERTO_ESTADO_SERVIDOR = 1302;
     private OperacionesInternet oi;

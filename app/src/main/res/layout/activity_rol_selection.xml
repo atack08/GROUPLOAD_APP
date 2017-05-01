@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CREAR GRUPO"
-            android:onClick="formularioCreacionGrupo"
+            android:onClick="crearGrupo"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
 
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="UNIRSE A GRUPO"
-            android:onClick="formularioUnionGrupo"
+            android:onClick="unirseAGrupo"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
 
