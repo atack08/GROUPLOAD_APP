@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 
 import BEANS.Grupo;
@@ -38,12 +38,15 @@ public class UnirseGrupo extends AppCompatActivity {
     //GRUPO SELECCIONADO DE LA LISTA
     private Grupo grupoSeleccionado;
     private TextView labelGrupoSeleccionado;
+    private Spinner spinnerUnirseGrupo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unirse_grupo);
+
+        grupoSeleccionado = null;
 
         //RECUPERAMOS DEL INTENT EL USUARIO Y EL SERVIDOR LOGEADOS
         Intent intent = getIntent();
@@ -57,12 +60,17 @@ public class UnirseGrupo extends AppCompatActivity {
         listaGrupos = (ListView) findViewById(R.id.listViewGrupos);
         pedirListaGruposServidor(null);
 
+        //RECATAMOS EL SPINNER PARA SELECCIONAR EL % DE DESCARGA
+        spinnerUnirseGrupo = (Spinner) findViewById(R.id.spinnerUnirseGrupo);
+
         //AÑADIMOS EL ESCUCHADOR A LA LISTVIEW
         listaGrupos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 grupoSeleccionado = (Grupo) parent.getItemAtPosition(position);
-                labelGrupoSeleccionado.setText(grupoSeleccionado.getAlias());
+                labelGrupoSeleccionado.setText( "Unirse a " + grupoSeleccionado.getAlias() + " con % ");
+                actualizarSpinnerPorcentaje();
+                ((Button)findViewById(R.id.botonUnirseGrupo)).setEnabled(true);
 
             }
         });
@@ -82,10 +90,19 @@ public class UnirseGrupo extends AppCompatActivity {
     //METODO PARA CONFECCIONAR LA VISTA DE LA LISTA
     public void configurarVistaLista(ArrayList<Grupo> listaG){
 
-        Toast.makeText(this, "LISTA CONTIENE " + String.valueOf(listaG.size()) + " GRUPOS", Toast.LENGTH_LONG).show();
         this.listaG = listaG;
         adaptadorLista =  new AdaptadorGrupos(this,listaG);
         listaGrupos.setAdapter(adaptadorLista);
+
+    }
+
+    //MÉTODO QUE RESETEA LA SELECCIÓN DEL GRUPO
+    public void resetearSeleccion(){
+
+        grupoSeleccionado = null;
+        ((Button)findViewById(R.id.botonUnirseGrupo)).setEnabled(false);
+        labelGrupoSeleccionado.setText("");
+        actualizarSpinnerPorcentaje();
 
     }
 
@@ -126,7 +143,45 @@ public class UnirseGrupo extends AppCompatActivity {
                 });
 
 
+
         dialog.show();
+
+    }
+
+    //MÉTODO PARA UNIRSE AL GRUPO SELECCIONADO
+    //CONTROLARÁ LAS DIFERENTES CONDICIONES EN LAS QUE SE PODRÁ O NO  UNIRSE A UN GRUPO
+    public void unirse(View v){
+
+        //EJECUTAMOS TAREA ASINCRONA PARA PEDIR AL SERVIDOR LA LISTA DE GRUPOS
+        Lista_Grupos_Servidor  tareaGrupos= new Lista_Grupos_Servidor(usuario,servidor,this);
+        tareaGrupos.execute();
+
+
+
+    }
+
+    //MÉTODO QUE ACTUALIZA EL SPINNER CON EL PORCENTAJE DE DESCARGA
+    public void actualizarSpinnerPorcentaje(){
+
+        if(grupoSeleccionado != null){
+            //CARGAMOS EL SPINNER CON LOS % ADMITIDOS
+            int porcentajeDescarga = 100 - grupoSeleccionado.getParticipacion();
+            Integer[] porcentajes = new Integer[porcentajeDescarga/10];
+            int num = 0;
+
+            for(int x = 0; x < porcentajes.length; x++){
+
+                porcentajes[x] = num + 10;
+                num = num + 10 ;
+            }
+
+            ArrayAdapter<Integer> porcentajesSpinner = new ArrayAdapter<Integer>(this,R.layout.support_simple_spinner_dropdown_item,porcentajes);
+            spinnerUnirseGrupo.setAdapter(porcentajesSpinner);
+            spinnerUnirseGrupo.setVisibility(View.VISIBLE);
+        }
+        else
+            spinnerUnirseGrupo.setVisibility(View.INVISIBLE);
+
 
     }
 
@@ -157,4 +212,24 @@ public class UnirseGrupo extends AppCompatActivity {
         }
     }
 
+    public Servidor getServidor() {
+        return servidor;
+    }
+
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public ArrayList<Grupo> getListaG() {
+        return listaG;
+    }
+
+    public Grupo getGrupoSeleccionado() {
+        return grupoSeleccionado;
+    }
+
+    public void setGrupoSeleccionado(Grupo grupoSeleccionado) {
+        this.grupoSeleccionado = grupoSeleccionado;
+    }
 }

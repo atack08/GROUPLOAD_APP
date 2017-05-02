@@ -70,4 +70,20 @@ public class Grupo implements Serializable {
     public int getParticipacion() {
         return participacion;
     }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (!(o instanceof Grupo)) return false;
+
+        Grupo grupo = (Grupo) o;
+
+        return alias != null ? alias.equals(grupo.alias) : grupo.alias == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return alias != null ? alias.hashCode() : 0;
+    }
 }

@@ -51,21 +51,39 @@
         android:layout_weight="0.5"
         android:orientation="vertical">
 
-        <TextView android:id="@+id/labelGrupoSeleccionado"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:textStyle="bold"
-            android:textSize="14dp"
-            android:layout_gravity="center"/>
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
 
-        <Button
+            <TextView android:id="@+id/labelGrupoSeleccionado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"/>
+
+            <Spinner android:id="@+id/spinnerUnirseGrupo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+
+
+
+        <Button android:id="@+id/botonUnirseGrupo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="UNIRSE AL GRUPO"
-            android:onClick=""
+            android:onClick="unirse"
             android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"/>
+            android:layout_marginRight="60dp"
+            android:enabled="false"/>
 
         <Button
             android:layout_width="match_parent"
