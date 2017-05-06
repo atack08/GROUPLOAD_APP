@@ -7,6 +7,8 @@ public class Cliente implements Serializable {
     private Usuario user;
     private String ip;
     private int porcentaje_descarga;
+    private int status;
+     		
     static final long serialVersionUID =1L;
 
     public Cliente(Usuario user, String ip, int porcentaje_descarga) {
@@ -47,5 +49,15 @@ public class Cliente implements Serializable {
     public void setPorcentaje_descarga(int porcentaje_descarga) {
         this.porcentaje_descarga = porcentaje_descarga;
     }
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+    
+    
 }
 

@@ -56,12 +56,12 @@ public class UnirseGrupo extends AppCompatActivity {
         //RESCATAMOS EL LABEL DEL GRUPO SELECCIONADO
         labelGrupoSeleccionado = (TextView)findViewById(R.id.labelGrupoSeleccionado);
 
+        //RECATAMOS EL SPINNER PARA SELECCIONAR EL % DE DESCARGA
+        spinnerUnirseGrupo = (Spinner) findViewById(R.id.spinnerUnirseGrupo);
+
         //CARGAMOS LA LISTA DE GRUPOS DISPONIBLES EN EL SERVIDOR
         listaGrupos = (ListView) findViewById(R.id.listViewGrupos);
         pedirListaGruposServidor(null);
-
-        //RECATAMOS EL SPINNER PARA SELECCIONAR EL % DE DESCARGA
-        spinnerUnirseGrupo = (Spinner) findViewById(R.id.spinnerUnirseGrupo);
 
         //AÑADIMOS EL ESCUCHADOR A LA LISTVIEW
         listaGrupos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,6 +82,7 @@ public class UnirseGrupo extends AppCompatActivity {
     public void pedirListaGruposServidor(View v){
 
         //EJECUTAMOS TAREA ASINCRONA PARA PEDIR AL SERVIDOR LA LISTA DE GRUPOS
+        resetearSeleccion();
         Lista_Grupos_Servidor  tareaGrupos= new Lista_Grupos_Servidor(usuario,servidor,this);
         tareaGrupos.execute();
 
@@ -157,7 +158,6 @@ public class UnirseGrupo extends AppCompatActivity {
         tareaGrupos.execute();
 
 
-
     }
 
     //MÉTODO QUE ACTUALIZA EL SPINNER CON EL PORCENTAJE DE DESCARGA
@@ -210,6 +210,18 @@ public class UnirseGrupo extends AppCompatActivity {
 
             return (item);
         }
+    }
+
+    //MÉTODO QUE INICIA LA ACTIVIDAD DE CONEXIÓN A GRUPO
+    public void conectarseAGrupo(){
+        Intent intent = new Intent(this, ConectarGrupo.class);
+
+        intent.putExtra("porcentaje", ((Integer)spinnerUnirseGrupo.getSelectedItem()).intValue());
+        intent.putExtra("servidor", servidor);
+        intent.putExtra("usuario", usuario);
+        intent.putExtra("grupoConectado", grupoSeleccionado);
+
+        startActivity(intent);
     }
 
     public Servidor getServidor() {

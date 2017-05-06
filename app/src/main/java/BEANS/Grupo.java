@@ -1,6 +1,7 @@
 package BEANS;
 
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -10,12 +11,14 @@ public class Grupo implements Serializable {
     private String password;
     private ArrayList<Cliente> listaClientes;
     private int participacion; //el porcentaje de descarga ya asignado
+    private File recurso;
     static final long serialVersionUID =1L;
 
-    public Grupo(String alias, String password) {
+    public Grupo(String alias, String password, File recurso) {
         this.alias = alias;
         this.password = password;
         this.listaClientes = new ArrayList<>();
+        this.recurso = recurso;
 
         asignarParticipacion();
     }
@@ -71,6 +74,14 @@ public class Grupo implements Serializable {
         return participacion;
     }
 
+    public File getRecurso() {
+        return this.recurso;
+    }
+
+    public void setRecuso(File recurso) {
+        this.recurso = recurso;
+    }
+
     @Override
     public boolean equals(Object o) {
 
@@ -86,4 +97,6 @@ public class Grupo implements Serializable {
     public int hashCode() {
         return alias != null ? alias.hashCode() : 0;
     }
+    
+  
 }

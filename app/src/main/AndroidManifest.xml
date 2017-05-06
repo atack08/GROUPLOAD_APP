@@ -27,8 +27,8 @@
         </activity>
         <activity android:name=".RolSelection" />
         <activity android:name=".CrearGrupo" />
-        <activity android:name=".UnirseGrupo">
-        </activity>
+        <activity android:name=".UnirseGrupo"></activity>
+        <activity android:name=".ConectarGrupo"></activity>
     </application>
 
 </manifest>

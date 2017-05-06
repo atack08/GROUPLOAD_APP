@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.atack08.groupload_app.ConectarGrupo"
+    android:background="@drawable/degradado"
+    android:orientation="vertical">
+
+    <TableLayout android:id="@+id/tablaGrupo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:gravity="center">
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/borde_linea_blanca">
+
+        <TextView android:id="@+id/labelNombreGrupoConectado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Grupo The best" />
+
+        <TextView android:id="@+id/labelNombreDescarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2">
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
