@@ -80,6 +80,13 @@ public class Lista_Grupos_Servidor extends AsyncTask {
                     ug.actualizarSpinnerPorcentaje();
                     ug.mostrarPanelError("El grupo ha cambiado en el servidor, vuelva a seleccionar % de descarga.");
                 }
+                else{
+                    //PROCESO UNIÓN A GRUPO
+                    ug.mostrarPanelInfo("Al presionar OK la aplicación pasará a modo ESPERAR DESCARGA, mientras no salga, la aplicación" +
+                            " quedará a la espera de que el servidor envíe su parte de la descarga en grupo.");
+                }
+
+
             }
             else{
                 //SI EL GRUPO HA SIDO ELIMINADO DEL SERVIDOR
