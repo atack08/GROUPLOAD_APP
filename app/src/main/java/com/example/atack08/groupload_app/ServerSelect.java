@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import BEANS.Servidor;
 import BEANS.Usuario;
+import HILOS_SERVICIOS.Hilos_Pruebas;
 
 public class ServerSelect extends AppCompatActivity {
 
@@ -61,6 +62,7 @@ public class ServerSelect extends AppCompatActivity {
 
         //UNA VEZ CONCEDIDOS PERMISOS INICIALIZAMOS LA CLASE QUE CONTROLA LA RED WAN
         redWAN = new OperacionesInternet(this, botonConectar, this);
+
 
     }
 

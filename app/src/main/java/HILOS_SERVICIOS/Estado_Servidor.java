@@ -34,6 +34,9 @@ public class Estado_Servidor extends AsyncTask<Servidor, Integer,Boolean>{
         try {
             Socket socket = new Socket(s.getIpServidor(), PUERTO_ESTADO_SERVIDOR);
             isOnline = socket.isConnected();
+
+            System.out.println("IP DATOS: " + socket.getLocalAddress());
+
             socket.close();
 
         } catch (SocketException e) {
