@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
+import HILOS_SERVICIOS.Creacion_Grupo;
+import HILOS_SERVICIOS.Subida_Recurso;
 
 public class CrearGrupo extends AppCompatActivity {
 
@@ -35,6 +38,8 @@ public class CrearGrupo extends AppCompatActivity {
     private Spinner spinnerRecursos;
     private EditText editNombreGrupo, editPassGrupo;
     private File torrentSeleccionado;
+    private Button botonSubirRecurso;
+    private Grupo nuevoGrupo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,7 @@ public class CrearGrupo extends AppCompatActivity {
         //RECUPERAMOS COMPONENTES DEL FORMULARIO
         editNombreGrupo = (EditText) findViewById(R.id.editNombreCreacionGrupo);
         editPassGrupo = (EditText)findViewById(R.id.editPassCreacionGrupo);
+        botonSubirRecurso = (Button) findViewById(R.id.botonSubirRecurso);
 
         //RECUPERAMOS EL SPINNER DE RECURSO
         //RELLENAMOS LA LISTA CON LOS FICHEROS TORRENT SITUADOS EN LA CARPETA DESCARGAS
@@ -121,13 +127,22 @@ public class CrearGrupo extends AppCompatActivity {
                 }
 
                 //CREAMOS LA INSTANCIA DE GRUPO QUE ENVIAREMOS AL SERVIDOR
-                Grupo nuevoGrupo = new Grupo(nombreGrupo,passGrupo,nombreR);
+                nuevoGrupo = new Grupo(nombreGrupo,passGrupo,nombreR);
 
                 //INICIAMOS LA TAREA PARA ENVIAR EL GRUPO AL SERVIDOR
+                Creacion_Grupo tarea_creacion= new Creacion_Grupo(servidor,nuevoGrupo,torrentSeleccionado,this);
+                tarea_creacion.execute();
             }
         }
 
 
+    }
+
+    //MÉTODO PARA SUBIR EL RECURSO DEL GRUPO
+    public void subirRecurso(View v){
+
+        Subida_Recurso tarea_subida = new Subida_Recurso(servidor,nuevoGrupo, torrentSeleccionado);
+        tarea_subida.execute();
     }
 
 
@@ -175,5 +190,9 @@ public class CrearGrupo extends AppCompatActivity {
     public void actualizarListaRecursos(View v){
 
         rellenarFicherosTorrent();
+    }
+
+    public Button getBotonSubirRecurso() {
+        return botonSubirRecurso;
     }
 }

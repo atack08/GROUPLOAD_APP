@@ -112,6 +112,16 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
+
+            <Button android:id="@+id/botonSubirRecurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUBIR RECURSO"
+            android:onClick="subirRecurso"
+                android:enabled="false"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,6 +137,8 @@
                 android:onClick="crearGrupo"
                 android:layout_marginLeft="60dp"
                 android:layout_marginRight="60dp" />
+
+
 
 
         </LinearLayout>
