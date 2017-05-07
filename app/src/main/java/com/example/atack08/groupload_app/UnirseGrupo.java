@@ -204,8 +204,20 @@ public class UnirseGrupo extends AppCompatActivity {
             TextView lblNumUsuarios = (TextView)item.findViewById(R.id.listaLabelNumeroUsuario);
             lblNumUsuarios.setText("Número de usuarios: " + listaG.get(position).getListaClientes().size());
 
+            TextView lblRecurso = (TextView)item.findViewById(R.id.listaLabelRecurso);
+            lblRecurso.setText("Recurso: " + listaG.get(position).getRecurso());
+
             TextView lblPorcentaje = (TextView)item.findViewById(R.id.listaLabelPorcentajeLibre);
-            lblPorcentaje.setText("Porcentaje asignado: " + listaG.get(position).getParticipacion() + " %");
+            lblPorcentaje.setText("Porcentaje restante: " + ( 100 - listaG.get(position).getParticipacion()) + " %");
+
+            String estado="";
+            if(listaG.get(position).isRecursoDescargado())
+                estado = "Descarga completada";
+            else
+                estado = "Descargando...";
+
+            TextView lblEstado = (TextView)item.findViewById(R.id.listaLabelEstadoGrupo);
+            lblEstado.setText("Estado Recurso: " + estado);
 
 
             return (item);

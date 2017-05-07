@@ -11,14 +11,19 @@ public class Grupo implements Serializable {
     private String password;
     private ArrayList<Cliente> listaClientes;
     private int participacion; //el porcentaje de descarga ya asignado
-    private File recurso;
+    private String recurso;
     static final long serialVersionUID =1L;
 
-    public Grupo(String alias, String password, File recurso) {
+    //VARIABLE QUE NOS DICE SI EL RECURSO YA ESTA DESCARGADO EN SERVIDOR
+    private boolean recursoDescargado;
+
+    public Grupo(String alias, String password, String recurso) {
+    	
         this.alias = alias;
         this.password = password;
         this.listaClientes = new ArrayList<>();
         this.recurso = recurso;
+        this.recursoDescargado =  false;
 
         asignarParticipacion();
     }
@@ -42,9 +47,13 @@ public class Grupo implements Serializable {
 
     //MÉTODO PARA CAMBIAR EL PORCENTAJE DE DESCARGA A UN CLIENTE UNA VEZ YA UNIDO AL GRUPO
     public boolean cambiarPorcentajeDescarga(Cliente cliente1, int nuevoPorcentaje){
+    	
         if(!this.listaClientes.isEmpty()){
+        	
             for(Cliente c:listaClientes){
+            	
                 if(c.equals(cliente1)){
+                	
                     if(this.participacion - c.getPorcentaje_descarga() + nuevoPorcentaje <= 100){
                         c.setPorcentaje_descarga(nuevoPorcentaje);
                         asignarParticipacion();
@@ -74,15 +83,25 @@ public class Grupo implements Serializable {
         return participacion;
     }
 
-    public File getRecurso() {
+    public String getRecurso() {
         return this.recurso;
     }
 
-    public void setRecuso(File recurso) {
+    public void setRecuso(String recurso) {
         this.recurso = recurso;
     }
+    
+    
 
-    @Override
+    public boolean isRecursoDescargado() {
+		return recursoDescargado;
+	}
+
+	public void setRecursoDescargado(boolean recursoDescargado) {
+		this.recursoDescargado = recursoDescargado;
+	}
+
+	@Override
     public boolean equals(Object o) {
 
         if (!(o instanceof Grupo)) return false;

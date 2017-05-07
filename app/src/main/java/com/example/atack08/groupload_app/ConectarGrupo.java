@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,7 +20,6 @@ import BEANS.Cliente;
 import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
-import HILOS_SERVICIOS.Conexion_Cliente_Grupo;
 
 public class ConectarGrupo extends AppCompatActivity {
 
@@ -53,7 +50,7 @@ public class ConectarGrupo extends AppCompatActivity {
         labelNombreGrupo = (TextView)findViewById(R.id.labelNombreGrupoConectado);
         labelNombreGrupo.setText(grupoConectado.getAlias());
         labelNombreDescarga = (TextView)findViewById(R.id.labelNombreDescarga);
-        labelNombreDescarga.setText(grupoConectado.getRecurso().getName());
+        labelNombreDescarga.setText(grupoConectado.getRecurso());
 
         mostrarPanelInfo("La aplicación pasará a modo ESPERAR DESCARGA, mientras no salga, la aplicación" +
                 " quedará conectada al servidor a la espera de su parte de la descarga en grupo.");
@@ -61,14 +58,17 @@ public class ConectarGrupo extends AppCompatActivity {
         //CREAMOS LA TABLA
         construirTablaGrupo();
 
-        //INICIAMOS LA TAREA ASINCRONA PARA CONECTAR Y MANTENER AL CLIENTE
-        Conexion_Cliente_Grupo tareaConexion = new Conexion_Cliente_Grupo(this);
-        tareaConexion.execute();
+
     }
 
 
     //MÉTODO QUE CONSTRUE LA TABLA PARA MOSTRAR LOS INTEGRANTES DEL GUPO AL QUE ESTÁS CONECTADO
     public void construirTablaGrupo(){
+
+        System.out.println("REPINTANDO");
+
+        //LIMPIAMOS LA TABLA
+        tablaGrupo.removeAllViews();
 
         ImageView imagenSmart;
 

@@ -23,4 +23,16 @@
         android:textStyle="normal"
         android:textSize="12sp" />
 
+    <TextView android:id="@+id/listaLabelRecurso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:textSize="12sp" />
+
+    <TextView android:id="@+id/listaLabelEstadoGrupo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="normal"
+        android:textSize="12sp" />
+
 </LinearLayout>
