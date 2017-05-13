@@ -93,10 +93,6 @@ public class Lista_Grupos_Servidor extends AsyncTask {
 
 
 
-
-            //
-
-
         }
     }
 }

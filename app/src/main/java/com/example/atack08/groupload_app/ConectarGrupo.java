@@ -1,6 +1,7 @@
 package com.example.atack08.groupload_app;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import BEANS.Cliente;
 import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
+import HILOS_SERVICIOS.Descarga_partes;
 
 public class ConectarGrupo extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class ConectarGrupo extends AppCompatActivity {
     private TextView labelNombreGrupo, labelNombreDescarga;
     private int porcentajeDescarga;
     private boolean desconectar;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +56,12 @@ public class ConectarGrupo extends AppCompatActivity {
         labelNombreDescarga = (TextView)findViewById(R.id.labelNombreDescarga);
         labelNombreDescarga.setText(grupoConectado.getRecurso());
 
-        mostrarPanelInfo("La aplicación pasará a modo ESPERAR DESCARGA, mientras no salga, la aplicación" +
-                " quedará conectada al servidor a la espera de su parte de la descarga en grupo.");
-
         //CREAMOS LA TABLA
         construirTablaGrupo();
+
+        //COMENZAMOS LA TAREA DE DESCARGA CON EL PORCENTAJE SELECCIONADO
+        Descarga_partes tarea_Descarga_Partes = new Descarga_partes(usuario,servidor,grupoConectado,porcentajeDescarga,this,pd);
+        tarea_Descarga_Partes.execute();
 
 
     }

@@ -12,10 +12,20 @@ public class Grupo implements Serializable {
     private ArrayList<Cliente> listaClientes;
     private int participacion; //el porcentaje de descarga ya asignado
     private String recurso;
+    private String nombreDescarga;
     static final long serialVersionUID =1L;
+    
+    //NUMERO DE DESCARGAS YA REALIZADAS EN EL GRUPO
+    private int indice;
 
-    //VARIABLE QUE NOS DICE SI EL RECURSO YA ESTA DESCARGADO EN SERVIDOR
-    private boolean recursoDescargado;
+    //VARIABLES QUE NOS DICE SI EL RECURSO YA ESTA DESCARGADO EN SERVIDOR
+    private int estado;
+
+    //CONSTANTES
+    public static final int PARADO = 0;
+    public static final int DESCARGANDO = 1;
+    public static final int DESCARGADO = 2;
+    public static final int COMPLETADO = 3;
 
     public Grupo(String alias, String password, String recurso) {
     	
@@ -23,14 +33,15 @@ public class Grupo implements Serializable {
         this.password = password;
         this.listaClientes = new ArrayList<>();
         this.recurso = recurso;
-        this.recursoDescargado =  false;
+        this.estado =  PARADO;
+        this.indice = 0;
 
         asignarParticipacion();
     }
 
     //MÉTODO PARA CALCULAR LA PARTICIPACIÓN DE DESCARGA YA ASIGNADA ENTRE LOS CLIENTES
     //REPRESENTA EL PORCENTAJE DE LA DESCARGA YA ASIGNADO A LOS CLIENTES
-    public void asignarParticipacion(){
+    public synchronized void asignarParticipacion(){
 
         this.participacion = 0;
 
@@ -39,14 +50,14 @@ public class Grupo implements Serializable {
         }
     }
 
-    //MÉTODO PARA AÑADIR UN CLIENTE A LA LISTA DE GRUPO
-    public void aniadirCliente(Cliente c){
+    //MÉTODO PARA AGREGAR UN CLIENTE A LA LISTA DE GRUPO
+    public synchronized void aniadirCliente(Cliente c){
         this.listaClientes.add(c);
         asignarParticipacion();
     }
 
     //MÉTODO PARA CAMBIAR EL PORCENTAJE DE DESCARGA A UN CLIENTE UNA VEZ YA UNIDO AL GRUPO
-    public boolean cambiarPorcentajeDescarga(Cliente cliente1, int nuevoPorcentaje){
+    public synchronized boolean cambiarPorcentajeDescarga(Cliente cliente1, int nuevoPorcentaje){
     	
         if(!this.listaClientes.isEmpty()){
         	
@@ -67,41 +78,55 @@ public class Grupo implements Serializable {
     }
 
 
-    public String getAlias() {
+    public synchronized String getAlias() {
         return alias;
     }
 
-    public String getPassword() {
+    public synchronized String getPassword() {
         return password;
     }
 
-    public ArrayList<Cliente> getListaClientes() {
+    public synchronized ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
 
-    public int getParticipacion() {
+    public synchronized int getParticipacion() {
         return participacion;
     }
 
-    public String getRecurso() {
+    public synchronized String getRecurso() {
         return this.recurso;
     }
 
-    public void setRecuso(String recurso) {
+    public synchronized void setRecuso(String recurso) {
         this.recurso = recurso;
     }
-    
-    
 
-    public boolean isRecursoDescargado() {
-		return recursoDescargado;
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public synchronized int getIndice() {
+		return indice;
 	}
 
-	public void setRecursoDescargado(boolean recursoDescargado) {
-		this.recursoDescargado = recursoDescargado;
+	public synchronized void setIndice(int indice) {
+		this.indice = indice;
 	}
 
-	@Override
+    public synchronized String getNombreDescarga() {
+        return nombreDescarga;
+    }
+
+    public synchronized void setNombreDescarga(String nombreDescarga) {
+        this.nombreDescarga = nombreDescarga;
+    }
+
+    @Override
     public boolean equals(Object o) {
 
         if (!(o instanceof Grupo)) return false;

@@ -141,6 +141,8 @@ public class CrearGrupo extends AppCompatActivity {
     //MÉTODO PARA SUBIR EL RECURSO DEL GRUPO
     public void subirRecurso(View v){
 
+        Toast.makeText(this, torrentSeleccionado.getName(), Toast.LENGTH_LONG).show();
+
         Subida_Recurso tarea_subida = new Subida_Recurso(servidor,nuevoGrupo, torrentSeleccionado);
         tarea_subida.execute();
     }

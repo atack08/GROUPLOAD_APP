@@ -211,10 +211,17 @@ public class UnirseGrupo extends AppCompatActivity {
             lblPorcentaje.setText("Porcentaje restante: " + ( 100 - listaG.get(position).getParticipacion()) + " %");
 
             String estado="";
-            if(listaG.get(position).isRecursoDescargado())
-                estado = "Descarga completada";
+            if(listaG.get(position).getEstado() == Grupo.PARADO)
+                estado = "Parado";
             else
-                estado = "Descargando...";
+                if(listaG.get(position).getEstado() == Grupo.DESCARGADO)
+                    estado = "Descarga completada";
+                else
+                    if(listaG.get(position).getEstado() == Grupo.DESCARGANDO)
+                        estado = "Descargando";
+                    else
+                    if(listaG.get(position).getEstado() == Grupo.COMPLETADO)
+                        estado = "Completado";
 
             TextView lblEstado = (TextView)item.findViewById(R.id.listaLabelEstadoGrupo);
             lblEstado.setText("Estado Recurso: " + estado);
