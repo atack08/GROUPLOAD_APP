@@ -48,6 +48,9 @@ public class Grupo implements Serializable {
         for(Cliente c: listaClientes){
             this.participacion = this.participacion + c.getPorcentaje_descarga();
         }
+
+        if(participacion == 100)
+            this.setEstado(COMPLETADO);
     }
 
     //MÉTODO PARA AGREGAR UN CLIENTE A LA LISTA DE GRUPO

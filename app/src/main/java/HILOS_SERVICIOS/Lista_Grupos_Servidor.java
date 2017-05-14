@@ -76,14 +76,32 @@ public class Lista_Grupos_Servidor extends AsyncTask {
             if(listaG.contains(gS)){
                 Grupo grupoActualizado = listaG.get(listaG.indexOf(gS));
 
-                if(gS.getParticipacion() != grupoActualizado.getParticipacion()) {
-                    ug.setGrupoSeleccionado(grupoActualizado);
-                    ug.actualizarSpinnerPorcentaje();
-                    ug.mostrarPanelError("El grupo ha cambiado en el servidor, vuelva a seleccionar % de descarga.");
-                }
-                else
-                    ug.conectarseAGrupo();
+                switch (grupoActualizado.getEstado()){
 
+                    case Grupo.PARADO:
+                        ug.mostrarPanelError("El grupo no tiene un recurso asignado.");
+                        break;
+
+                    case Grupo.DESCARGANDO:
+                        ug.mostrarPanelError("El grupo está realizando la descarga del recurso" +
+                                " en el servidor, deberá esperar a que finalice para poder realizar descargas.");
+                        break;
+
+                    case Grupo.COMPLETADO:
+                        ug.mostrarPanelError("El recurso ya fue descargado por completo, no puede realizar descargas.");
+                        break;
+
+                    case Grupo.DESCARGADO:
+                        if(gS.getParticipacion() != grupoActualizado.getParticipacion()) {
+                            ug.setGrupoSeleccionado(grupoActualizado);
+                            ug.actualizarSpinnerPorcentaje();
+                            ug.mostrarPanelError("El grupo ha cambiado en el servidor, vuelva a seleccionar % de descarga.");
+                        }
+                        else
+                            ug.conectarseAGrupo();
+                        break;
+
+                }
             }
             else{
                 //SI EL GRUPO HA SIDO ELIMINADO DEL SERVIDOR

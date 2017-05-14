@@ -2,6 +2,8 @@ package HILOS_SERVICIOS;
 
 import android.os.AsyncTask;
 
+import com.example.atack08.groupload_app.CrearGrupo;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,11 +25,13 @@ public class Subida_Recurso extends AsyncTask {
     private File torrentSeleccionado;
     private Socket conexion;
     private final int PUERTO_SUBIDA_RECURSO = 1453;
+    private CrearGrupo cg;
 
-    public Subida_Recurso(Servidor servidor, Grupo grupo, File torrentSeleccionado) {
+    public Subida_Recurso(Servidor servidor, Grupo grupo, File torrentSeleccionado, CrearGrupo cg) {
         this.servidor = servidor;
         this.grupo = grupo;
         this.torrentSeleccionado = torrentSeleccionado;
+        this.cg = cg;
     }
 
     @Override
@@ -70,6 +74,7 @@ public class Subida_Recurso extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
+        cg.mostrarPanelInfo("Se subió correctamente el fichero " + torrentSeleccionado.getName() + " al servidor.");
 
     }
 }

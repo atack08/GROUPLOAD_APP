@@ -79,7 +79,7 @@
         <Button android:id="@+id/botonUnirseGrupo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UNIRSE AL GRUPO"
+            android:text="REALIZAR DESCARGA"
             android:onClick="unirse"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
@@ -92,6 +92,14 @@
             android:onClick="pedirListaGruposServidor"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VOLVER"
+            android:onClick="volver"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp" />
 
     </LinearLayout>
 

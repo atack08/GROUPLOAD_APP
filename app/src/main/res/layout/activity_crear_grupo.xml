@@ -138,7 +138,13 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginRight="60dp" />
 
-
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VOLVER"
+                android:onClick="volver"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp" />
 
 
         </LinearLayout>

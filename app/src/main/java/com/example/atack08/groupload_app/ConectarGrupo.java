@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ import BEANS.Cliente;
 import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
+import HILOS_SERVICIOS.Actualizar_Grupos;
 import HILOS_SERVICIOS.Descarga_partes;
 
 public class ConectarGrupo extends AppCompatActivity {
@@ -69,8 +71,6 @@ public class ConectarGrupo extends AppCompatActivity {
 
     //MÉTODO QUE CONSTRUE LA TABLA PARA MOSTRAR LOS INTEGRANTES DEL GUPO AL QUE ESTÁS CONECTADO
     public void construirTablaGrupo(){
-
-        System.out.println("REPINTANDO");
 
         //LIMPIAMOS LA TABLA
         tablaGrupo.removeAllViews();
@@ -195,6 +195,12 @@ public class ConectarGrupo extends AppCompatActivity {
 
         dialog.show();
 
+    }
+
+    //MÉTODO PARA BOTÓN SALIR
+    public void volver(View v){
+
+        this.finish();
     }
 
     //GETTER SETTER

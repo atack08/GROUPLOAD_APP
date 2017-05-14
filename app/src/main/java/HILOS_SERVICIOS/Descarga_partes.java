@@ -3,23 +3,14 @@ package HILOS_SERVICIOS;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.widget.ArrayAdapter;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.example.atack08.groupload_app.ConectarGrupo;
-import com.example.atack08.groupload_app.R;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-
 import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
@@ -129,7 +120,6 @@ public class Descarga_partes extends AsyncTask{
 
                 escritura.close();
 
-                System.out.println("DESCARGA DE PARTE  TERMINADA: " + filePartes.length() + " bytes");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -144,7 +134,9 @@ public class Descarga_partes extends AsyncTask{
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
-        cg.construirTablaGrupo();
+        //EJECUTAMOS TAREA PARA REPINTAR LA TABLA DE CLIENTES DEL GRUPO
+        Actualizar_Grupos ag = new Actualizar_Grupos(servidor,ususario,cg);
+        ag.execute();
         cg.mostrarPanelInfo("Se descargaron las partes seleccionadas en la carpeta DESCARGAS de su dispositivo.");
     }
 

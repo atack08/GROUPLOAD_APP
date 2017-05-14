@@ -243,6 +243,10 @@ public class UnirseGrupo extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void volver(View v){
+        finish();
+    }
+
     public Servidor getServidor() {
         return servidor;
     }

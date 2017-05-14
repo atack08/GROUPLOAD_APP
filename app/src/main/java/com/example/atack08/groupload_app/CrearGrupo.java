@@ -65,8 +65,6 @@ public class CrearGrupo extends AppCompatActivity {
     }
 
 
-
-
     //MÉTODO QUE LISTA LOS FICHEROS TORRENT DE LA CARPETA DESCARGAS DE LA MEMORIA EXTERNA
     public void rellenarFicherosTorrent(){
 
@@ -141,9 +139,7 @@ public class CrearGrupo extends AppCompatActivity {
     //MÉTODO PARA SUBIR EL RECURSO DEL GRUPO
     public void subirRecurso(View v){
 
-        Toast.makeText(this, torrentSeleccionado.getName(), Toast.LENGTH_LONG).show();
-
-        Subida_Recurso tarea_subida = new Subida_Recurso(servidor,nuevoGrupo, torrentSeleccionado);
+        Subida_Recurso tarea_subida = new Subida_Recurso(servidor,nuevoGrupo, torrentSeleccionado,this);
         tarea_subida.execute();
     }
 
@@ -192,6 +188,11 @@ public class CrearGrupo extends AppCompatActivity {
     public void actualizarListaRecursos(View v){
 
         rellenarFicherosTorrent();
+    }
+
+    public void volver(View v){
+        finish();
+
     }
 
     public Button getBotonSubirRecurso() {

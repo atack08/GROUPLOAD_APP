@@ -51,7 +51,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="COMPARTIR DESCARGA"
+            android:text="TRANSFERENCIA WIFI P2P"
             android:enabled="false"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
@@ -59,10 +59,18 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="COMPLETAR DESCARGA"
+            android:text="JUNTAR ARCHIVOS"
             android:enabled="false"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VOLVER"
+            android:onClick="volver"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp" />
 
     </LinearLayout>
 
