@@ -116,6 +116,14 @@ public class RolSelection extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //MÉTODO QUE CAMBIA DE ACTIVIDAD CUANDO SE ELIGE CREAR UNIR FICHEROS
+    public void unirFicheros(View v){
+
+        Intent intent = new Intent(this, UnirFicheros.class);
+        startActivity(intent);
+    }
+
+
     public void volver(View v){
         finish();
 

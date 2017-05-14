@@ -59,10 +59,8 @@ public class ServerSelect extends AppCompatActivity {
         //COMPROBAMOS PERMISOS
         comprobarPermisos();
 
-
         //UNA VEZ CONCEDIDOS PERMISOS INICIALIZAMOS LA CLASE QUE CONTROLA LA RED WAN
         redWAN = new OperacionesInternet(this, botonConectar, this);
-
 
     }
 
@@ -87,9 +85,7 @@ public class ServerSelect extends AppCompatActivity {
             //REALIZAMOS EL LOGEO
             redWAN.logearEnServidor(servidor,user);
 
-
         }
-
 
     }
 
@@ -124,7 +120,6 @@ public class ServerSelect extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
 
         dialog.show();
 
@@ -205,6 +200,10 @@ public class ServerSelect extends AppCompatActivity {
 
         startActivity(intent);
 
+    }
+
+    public void salir(View v){
+        this.finish();
     }
 
 

@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,7 +61,6 @@ public class CrearGrupo extends AppCompatActivity {
         //RELLENAMOS LA LISTA CON LOS FICHEROS TORRENT SITUADOS EN LA CARPETA DESCARGAS
         spinnerRecursos = (Spinner)findViewById(R.id.spinnerRecursos);
         rellenarFicherosTorrent();
-
 
     }
 

@@ -51,7 +51,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TRANSFERENCIA WIFI P2P"
+            android:text="ENVIAR FICHEROS WIFI P2P"
+            android:onClick="irAWifiP2P"
             android:enabled="false"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
@@ -59,8 +60,17 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="JUNTAR ARCHIVOS"
+            android:text="RECIBIR FICHEROS WIFI P2P"
             android:enabled="false"
+            android:onClick="irARecepcionWifi"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UNIR FICHEROS"
+            android:onClick="unirFicheros"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
 

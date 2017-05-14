@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.atack08.groupload_app.UnirFicheros"
+    android:background="@drawable/degradado">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ListView android:id="@+id/listaFicherosSeleccionados"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar ficheros:"
+                android:textStyle="bold"
+                android:textColor="#FFF"
+                android:textSize="16dp" />
+
+            <Spinner android:id="@+id/spinnerJuntarFicheros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </Spinner>
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp">
+
+            <TableRow
+                android:gravity="center">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="AÑADIR FICHERO"
+                    android:onClick="add"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="BORRAR SELECCIÓN"
+                    android:onClick="clear"
+                    android:textStyle="bold"/>
+            </TableRow>
+
+
+            <TableRow
+                android:gravity="center">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="UNIR FICHEROS"
+                    android:onClick="lanzarTareaUnirFicheros"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="VOLVER"
+                    android:onClick="volver"
+                    android:textStyle="bold"
+                    />
+            </TableRow>
+
+        </TableLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GROUPLOAD"
+            android:textColor="@color/azulGoogle"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:background="@drawable/borde_linea_blanca"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
