@@ -30,6 +30,8 @@
         <activity android:name=".UnirseGrupo" />
         <activity android:name=".ConectarGrupo" />
         <activity android:name=".UnirFicheros" />
+        <activity android:name=".P2PServer" />
+        <activity android:name=".P2PClient"></activity>
     </application>
 
 </manifest>

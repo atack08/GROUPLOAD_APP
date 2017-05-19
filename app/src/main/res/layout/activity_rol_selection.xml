@@ -27,60 +27,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_weight="2"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CREAR GRUPO"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:onClick="crearGrupo"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"/>
+            android:text="CREAR GRUPO" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UNIRSE A GRUPO"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:onClick="unirseAGrupo"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"/>
+            android:text="UNIRSE A GRUPO" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ENVIAR FICHEROS WIFI P2P"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:onClick="irAWifiP2P"
-            android:enabled="false"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"/>
+            android:text="ENVIAR FICHEROS WIFI P2P" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RECIBIR FICHEROS WIFI P2P"
-            android:enabled="false"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:onClick="irARecepcionWifi"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"/>
+            android:text="RECIBIR FICHEROS WIFI P2P" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UNIR FICHEROS"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:onClick="unirFicheros"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"/>
+            android:text="UNIR FICHEROS" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="VOLVER"
-            android:onClick="volver"
             android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp" />
+            android:layout_marginRight="60dp"
+            android:onClick="volver"
+            android:text="VOLVER" />
 
     </LinearLayout>
 

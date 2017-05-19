@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.atack08.groupload_app.P2PClient"
+    android:orientation="vertical"
+    android:background="@drawable/degradado">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3">
+
+        <ListView android:id="@+id/listViewDispositivosWifi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <Spinner android:id="@+id/spinnerWifiFichero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_margin="10dp">
+
+        </Spinner>
+
+        <Button android:id="@+id/enviarFichero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ENVIAR FICHERO"
+            android:layout_gravity="center_horizontal"
+            android:onClick="enviarFichero"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
+        <Button android:id="@+id/botonBuscarDispositivos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BUSCAR DISPOSITIVOS"
+            android:layout_gravity="center_horizontal"
+            android:enabled="false"
+            android:onClick="buscarDispositivos"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="GROUPLOAD"
+            android:textColor="@color/azulGoogle"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:background="@drawable/borde_linea_blanca"/>
+
+    </LinearLayout>
+
+</LinearLayout>
