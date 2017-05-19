@@ -43,6 +43,7 @@
             android:text="ENVIAR FICHERO"
             android:layout_gravity="center_horizontal"
             android:onClick="enviarFichero"
+            android:enabled="false"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
 
@@ -51,7 +52,6 @@
             android:layout_height="wrap_content"
             android:text="BUSCAR DISPOSITIVOS"
             android:layout_gravity="center_horizontal"
-            android:enabled="false"
             android:onClick="buscarDispositivos"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
