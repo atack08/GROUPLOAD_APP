@@ -105,21 +105,6 @@ public class RolSelection extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //MÉTODO QUE CAMBIA DE ACTIVIDAD  -- RECEPCIÓN WIFI
-    public void irARecepcionWifi(View v){
-
-        Intent intent = new Intent(this, P2PServer.class);
-
-        startActivity(intent);
-    }
-
-    //MÉTODO QUE CAMBIA DE ACTIVIDAD  -- ENVIO WIFI
-    public void irAWifiP2P(View v){
-
-        Intent intent = new Intent(this, P2PClient.class);
-
-        startActivity(intent);
-    }
 
     //MÉTODO QUE CAMBIA DE ACTIVIDAD CUANDO SE ELIGE CREAR GRUPO
     public void crearGrupo(View v){

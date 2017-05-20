@@ -189,6 +189,22 @@ public class ServerSelect extends AppCompatActivity {
         }
     }
 
+    //MÉTODO QUE CAMBIA DE ACTIVIDAD  -- RECEPCIÓN WIFI
+    public void irARecepcionWifi(View v){
+
+        Intent intent = new Intent(this, P2PServer.class);
+
+        startActivity(intent);
+    }
+
+    //MÉTODO QUE CAMBIA DE ACTIVIDAD  -- ENVIO WIFI
+    public void irAWifiP2P(View v){
+
+        Intent intent = new Intent(this, P2PClient.class);
+
+        startActivity(intent);
+    }
+
     //MÉTODO PARA CAMBIAR DE VENTANA DENTRO DE LA APLICACIÓN
     public void cambiarActividadLogin(Servidor server, Usuario user){
 
