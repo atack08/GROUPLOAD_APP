@@ -57,7 +57,7 @@ public class Grupo implements Serializable {
         asignarParticipacion();
     }
     
-    //MÉTODO PARA BORRAR UN CLIENTE DEL GRUPO
+    //MÃ‰TODO PARA BORRAR UN CLIENTE DEL GRUPO
     public synchronized void borrarCliente(Cliente c){
   
     	if(this.listaClientes.contains(c)){
