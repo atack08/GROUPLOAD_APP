@@ -80,29 +80,13 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
                 publishProgress(-1f);
 
                 //PASAMOS A LEER EL FICHERO
-                long timeI;
-                long timeF;
-                int len = inFile.read(buffer);
+                int len;
+                while((len = inFile.read(buffer)) > 0){
 
-                while(len > 0){
-                    timeI = System.currentTimeMillis();
                     outData.write(buffer,0,len);
-
-
-                    len = inFile.read(buffer);
-                    timeF = System.currentTimeMillis();
-
-
-                    tasaTransfer = ((1024f/(timeF - timeI))*1000f)/1024f; //KB por segundo
-
-                    System.out.println("DIFERENCIA DE " + timeF + " - " + timeI);
-                    System.out.println("DIFERENCIA DE " + String.valueOf(timeF - timeI));
-                    System.out.println("TASA DESCARGA: " + String.valueOf((1024f/(timeF - timeI))));
-
 
                     progreso = progreso + porcentaje;
                     publishProgress(progreso);
-                    Thread.sleep(5);
                 }
 
                 //CERRAMOS STREAMS
@@ -111,8 +95,6 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
                 conexion.close();
 
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -145,8 +127,7 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
             pd.show();
         }
         else{
-            pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024))
-                    + " MB. Velocidad: " + String.valueOf(tasaTransfer) + " KB/s");
+            pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");
             pd.setProgress(progreso);
 
         }
