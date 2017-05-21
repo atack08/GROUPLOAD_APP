@@ -88,8 +88,8 @@ public class Tarea_Server_Enviar_P2P extends AsyncTask{
 
                 progreso = progreso + porcentaje;
                 publishProgress(progreso);
+                Thread.sleep(5);
             }
-            publishProgress(100);
 
             //CERRAMOS STREAMS
             inFile.close();
@@ -99,6 +99,8 @@ public class Tarea_Server_Enviar_P2P extends AsyncTask{
             server.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -137,16 +139,17 @@ public class Tarea_Server_Enviar_P2P extends AsyncTask{
                     + " MB. Velocidad: " + String.valueOf(tasaTransfer) + " KB/s");
             pd.setProgress(progreso);
 
-            if(progreso == 100){
-                pd.cancel();
-                activity.mostrarPanelInfo("Se completó la tranferencia de ficheros.");
-            }
         }
-
-
 
     }
 
+    @Override
+    protected void onPostExecute(Object o) {
+        super.onPostExecute(o);
+
+        pd.cancel();
+        activity.mostrarPanelInfo("Se completó la tranferencia de ficheros.");
+    }
 }
 
 
