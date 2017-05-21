@@ -94,6 +94,8 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
 
                     tasaTransfer = ((1024f/(timeF - timeI))*1000f)/1024f; //KB por segundo
 
+                    System.out.println("TASA DESCARGA: " + String.valueOf((1024f/(timeF - timeI))));
+
                     progreso = progreso + porcentaje;
                     publishProgress(progreso);
                     Thread.sleep(5);
