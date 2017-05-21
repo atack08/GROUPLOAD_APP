@@ -134,10 +134,13 @@ public class Descarga_partes extends AsyncTask{
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
+        pd.cancel();
+        cg.mostrarPanelInfo("Se descargaron las partes seleccionadas en la carpeta DESCARGAS de su dispositivo.");
+
         //EJECUTAMOS TAREA PARA REPINTAR LA TABLA DE CLIENTES DEL GRUPO
         Actualizar_Grupos ag = new Actualizar_Grupos(servidor,ususario,cg);
         ag.execute();
-        cg.mostrarPanelInfo("Se descargaron las partes seleccionadas en la carpeta DESCARGAS de su dispositivo.");
+
     }
 
     @Override
@@ -145,9 +148,6 @@ public class Descarga_partes extends AsyncTask{
 
         int progreso = (int)((float)values[0]);
         pd.setProgress(progreso);
-
-        if(progreso == 100)
-            pd.cancel();
 
     }
 
