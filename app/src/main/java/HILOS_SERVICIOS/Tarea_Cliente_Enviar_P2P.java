@@ -1,57 +1,66 @@
 package HILOS_SERVICIOS;
 
 import android.app.ProgressDialog;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 
-import com.example.atack08.groupload_app.P2PClient;
+import com.example.atack08.groupload_app.P2PWifiDirect;
 
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
  * Created by atack08 on 19/5/17.
  */
 
-public class Tarea_Cliente_P2P extends AsyncTask {
+public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
 
     private File fichero;
-    private final int PUERTO_CONEXION_WIFI_P2P = 7950;
-    private WifiP2pDevice targetDevice;
-    private WifiP2pInfo wifiInfo;
-    private P2PClient p2pClient;
+    private final int PUERTO_CONEXION_WIFI_P2P = 8988;
+    private P2PWifiDirect p2PWifiDirect;
     private String nomFile;
     private ProgressDialog pd;
     private long sizeDescarga;
+    private InetAddress serverIP;
 
-    private String msgFinish;
+    private float tasaTransfer;
 
-    public Tarea_Cliente_P2P(File fichero, WifiP2pDevice targetDevice, WifiP2pInfo wifiInfo, P2PClient p2pClient, ProgressDialog pd) {
+
+    public Tarea_Cliente_Enviar_P2P(File fichero, P2PWifiDirect p2PWifiDirect, ProgressDialog pd, InetAddress serverIP) {
         this.fichero = fichero;
-        this.targetDevice = targetDevice;
-        this.wifiInfo = wifiInfo;
-        this.p2pClient = p2pClient;
+        this.p2PWifiDirect = p2PWifiDirect;
         this.pd = pd;
         this.nomFile = fichero.getName();
         this.sizeDescarga = fichero.length();
+        this.serverIP = serverIP;
+        this.tasaTransfer = 0;
+
+        System.out.println("LLEGA Y EJECUTA BIEN EL CONSTRUCTOR");
+
+
     }
 
     @Override
     protected Object doInBackground(Object[] params) {
 
-        if(!wifiInfo.isGroupOwner){
-            //SACAMOS IP
-            InetAddress targetIP = wifiInfo.groupOwnerAddress;
-
             try {
-                Socket conexion = new Socket(targetIP,PUERTO_CONEXION_WIFI_P2P);
-                byte[] buffer =  new byte[2048];
+                System.out.println("ENTRA AL FILE TRANSFER");
+
+                Socket conexion = new Socket();
+                conexion.bind(null);
+
+                conexion.connect((new InetSocketAddress(serverIP,PUERTO_CONEXION_WIFI_P2P)),500);
+
+                System.out.println("ESTABLECE LA CONEXION");
+
+                byte[] buffer =  new byte[1024];
 
                 //ABRIMOS STREAMS
                 DataOutputStream outData = new DataOutputStream(conexion.getOutputStream());
@@ -61,19 +70,29 @@ public class Tarea_Cliente_P2P extends AsyncTask {
                 outData.writeLong(sizeDescarga);
 
                 //CALCULAMOS PORCENTAJE
-                float porcentaje = (2048f * 100f) / sizeDescarga;
+                float porcentaje = (1024f * 100f) / sizeDescarga;
                 float progreso = 0;
 
                 //CREAMOS STREAMS PARA EL FICHERO
                 FileInputStream inFile = new FileInputStream(fichero);
 
                 //CUANDO HAY UNA CONEXIÓN ABRIMOS EL DIALOGO DE PROGRESO
-                publishProgress(-1);
+                publishProgress(-1f);
 
-                int len;
                 //PASAMOS A LEER EL FICHERO
-                while((len = inFile.read(buffer)) > 0){
+                long timeI;
+                long timeF;
+                int len = inFile.read(buffer);
+
+                while(len > 0){
+                    timeI = System.currentTimeMillis();
                     outData.write(buffer,0,len);
+
+
+                    len = inFile.read(buffer);
+                    timeF = System.currentTimeMillis();
+
+                    tasaTransfer = ((1024f/(timeF - timeI))*1000)/1024f; //KB por segundo
 
                     progreso = progreso + porcentaje;
                     publishProgress(progreso);
@@ -89,11 +108,6 @@ public class Tarea_Cliente_P2P extends AsyncTask {
                 e.printStackTrace();
             }
 
-        }
-        else
-            msgFinish = "El dispositivo es 'GROUP OWNER' y no se pudo conocer su IP.";
-
-
         return null;
     }
 
@@ -103,7 +117,7 @@ public class Tarea_Cliente_P2P extends AsyncTask {
         super.onPreExecute();
 
         //CONFIGURAMOS EL PROGRESS DIALOG
-        pd =  new ProgressDialog(p2pClient);
+        pd =  new ProgressDialog(p2PWifiDirect);
         pd.setCancelable(false);
         pd.setTitle("Transferencia de fichero: ");
         pd.setMessage("Enviando...");
@@ -119,23 +133,19 @@ public class Tarea_Cliente_P2P extends AsyncTask {
         int progreso = (int)((float)values[0]);
 
         if(progreso == -1){
-            pd.setMessage(nomFile + ", " + Float.valueOf((sizeDescarga/1024)/1024) + " MB.");
+            pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");
             pd.show();
         }
         else{
+            pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024))
+                    + " MB. Velocidad: " + String.valueOf(tasaTransfer) + " KB/s");
             pd.setProgress(progreso);
 
             if(progreso == 100){
                 pd.cancel();
-                p2pClient.mostrarPanelInfo("Se completó la tranferencia de ficheros.");
+                p2PWifiDirect.mostrarPanelInfo("Se completó la tranferencia de ficheros.");
             }
         }
     }
 
-    @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
-
-        p2pClient.mostrarPanelInfo(msgFinish);
-    }
 }

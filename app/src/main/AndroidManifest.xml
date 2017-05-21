@@ -27,11 +27,15 @@
         </activity>
         <activity android:name=".RolSelection" />
         <activity android:name=".CrearGrupo" />
-        <activity android:name=".UnirseGrupo" />
+        <activity android:name=".UnirseGrupo"
+            android:screenOrientation="nosensor"/>
         <activity android:name=".ConectarGrupo" />
-        <activity android:name=".UnirFicheros" />
-        <activity android:name=".P2PServer" />
-        <activity android:name=".P2PClient"></activity>
+        <activity android:name=".UnirFicheros"
+            android:screenOrientation="nosensor"/>
+        <activity android:name=".P2PWifiDirect"
+            android:screenOrientation="nosensor">
+
+        </activity>
     </application>
 
 </manifest>

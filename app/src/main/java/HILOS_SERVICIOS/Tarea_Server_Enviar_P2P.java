@@ -1,33 +1,45 @@
 package HILOS_SERVICIOS;
 
 import android.app.ProgressDialog;
+import android.net.wifi.p2p.WifiP2pInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 
-import com.example.atack08.groupload_app.P2PServer;
+import com.example.atack08.groupload_app.P2PWifiDirect;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Tarea_Server_P2P extends AsyncTask {
+/**
+ * Created by atack08 on 21/5/17.
+ */
 
-    private final int PUERTO_ESCUCHA_P2P = 7950;
-    private final File CARPETA_PUBLICA_DESCARGAS = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-    private P2PServer activity;
+public class Tarea_Server_Enviar_P2P extends AsyncTask{
+
+    private final int PUERTO_ESCUCHA_P2P = 8988;
+    private File fichero;
+    private P2PWifiDirect activity;
     private ServerSocket server;
     private Socket cliente;
     private String nomFile;
     private ProgressDialog pd;
     private long sizeDescarga;
+    private float tasaTransfer;
 
-    public Tarea_Server_P2P(P2PServer activity, ProgressDialog pd) {
+    public Tarea_Server_Enviar_P2P(File fichero,P2PWifiDirect activity, ProgressDialog pd) {
         this.activity = activity;
         this.pd = pd;
+        this.fichero = fichero;
+        this.nomFile = fichero.getName();
+        this.sizeDescarga = fichero.length();
+        this.tasaTransfer = 0;
+
     }
 
     @Override
@@ -35,32 +47,44 @@ public class Tarea_Server_P2P extends AsyncTask {
 
         try {
             server = new ServerSocket(PUERTO_ESCUCHA_P2P);
-            byte[] buffer =  new byte[2048];
+
+            System.out.println("SERVIDOR ESCUCHANDO...");
+            byte[] buffer =  new byte[1024];
 
             //PONEMOS EL SERVER A LA ESCUCHA
             cliente = server.accept();
 
             //ABRIMOS STREAMS
-            DataInputStream inData = new DataInputStream(cliente.getInputStream());
+            DataOutputStream outData = new DataOutputStream(cliente.getOutputStream());
 
-            //RECATAMOS EL NOMBRE DEL FICHERO Y EL TAMAÑO
-            nomFile = inData.readUTF();
-            sizeDescarga = inData.readLong();
+            //ENVIAMOS NOMBRE DE FICHERO Y TAMAÑO
+            outData.writeUTF(nomFile);
+            outData.writeLong(sizeDescarga);
 
             //CALCULAMOS PORCENTAJE
-            float porcentaje = (2048f * 100f) / sizeDescarga;
+            float porcentaje = (1024f * 100f) / sizeDescarga;
             float progreso = 0;
 
             //CREAMOS STREAMS PARA EL FICHERO
-            FileOutputStream outFile = new FileOutputStream(new File(CARPETA_PUBLICA_DESCARGAS.getAbsolutePath() + "/" + nomFile));
+            FileInputStream inFile = new FileInputStream(fichero);
 
             //CUANDO HAY UNA CONEXIÓN ABRIMOS EL DIALOGO DE PROGRESO
-            publishProgress(-1);
+            publishProgress(-1f);
 
-            int len;
             //PASAMOS A LEER EL FICHERO
-            while((len = inData.read(buffer)) > 0){
-                outFile.write(buffer,0,len);
+            long timeI;
+            long timeF;
+            int len = inFile.read(buffer);
+
+            while(len > 0){
+                timeI = System.currentTimeMillis();
+                outData.write(buffer,0,len);
+
+
+                len = inFile.read(buffer);
+                timeF = System.currentTimeMillis();
+
+                tasaTransfer = ((1024f/(timeF - timeI))*1000)/1024f; //KB por segundo
 
                 progreso = progreso + porcentaje;
                 publishProgress(progreso);
@@ -68,8 +92,8 @@ public class Tarea_Server_P2P extends AsyncTask {
             publishProgress(100);
 
             //CERRAMOS STREAMS
-            outFile.close();
-            inData.close();
+            inFile.close();
+            outData.close();
             cliente.close();
 
             server.close();
@@ -79,6 +103,11 @@ public class Tarea_Server_P2P extends AsyncTask {
         }
 
         return null;
+    }
+
+    //MÉTODO QUE CONFIGURA LOS STREAMS DEPENDIENDO SI VA A RECIBIR O ENVIAR UN FICHERO
+    public void configurarStreams(){
+
     }
 
     @Override
@@ -104,10 +133,12 @@ public class Tarea_Server_P2P extends AsyncTask {
         int progreso = (int)((float)values[0]);
 
         if(progreso == -1){
-            pd.setMessage(nomFile + ", " + Float.valueOf((sizeDescarga/1024)/1024) + " MB.");
+            pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");
             pd.show();
         }
         else{
+            pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024))
+                    + " MB. Velocidad: " + String.valueOf(tasaTransfer) + " KB/s");
             pd.setProgress(progreso);
 
             if(progreso == 100){
@@ -123,8 +154,10 @@ public class Tarea_Server_P2P extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        activity.mostrarPanelInfo("El servidor ya no está a la escucha");
-        activity.getBotonIniciar().setEnabled(true);
+
 
     }
 }
+
+
+

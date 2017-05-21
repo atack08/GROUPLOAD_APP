@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.atack08.groupload_app.P2PClient"
+    tools:context="com.example.atack08.groupload_app.P2PWifiDirect"
     android:orientation="vertical"
     android:background="@drawable/degradado">
 
@@ -37,12 +37,32 @@
 
         </Spinner>
 
-        <Button android:id="@+id/enviarFichero"
+        <Button android:id="@+id/botonEnviarFichero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ENVIAR FICHERO"
             android:layout_gravity="center_horizontal"
             android:onClick="enviarFichero"
+            android:enabled="false"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
+        <Button android:id="@+id/botonRecibirFichero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RECIBIR FICHERO"
+            android:layout_gravity="center_horizontal"
+            android:onClick="recibirFichero"
+            android:enabled="false"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
+        <Button android:id="@+id/botonConectarDispositivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONECTAR"
+            android:layout_gravity="center_horizontal"
+            android:onClick="conectarConDispositivo"
             android:enabled="false"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
@@ -53,6 +73,15 @@
             android:text="BUSCAR DISPOSITIVOS"
             android:layout_gravity="center_horizontal"
             android:onClick="buscarDispositivos"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SALIR"
+            android:layout_gravity="center_horizontal"
+            android:onClick="volver"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"/>
 

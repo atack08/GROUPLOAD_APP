@@ -9,7 +9,7 @@ import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 
-import com.example.atack08.groupload_app.P2PClient;
+import com.example.atack08.groupload_app.P2PWifiDirect;
 
 import java.util.ArrayList;
 
@@ -17,13 +17,13 @@ import java.util.ArrayList;
  * Created by atack08 on 19/5/17.
  */
 
-public class WifiClientBroadcastReceiver extends BroadcastReceiver {
+public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
 
     private WifiP2pManager manager;
     private WifiP2pManager.Channel channel;
-    private P2PClient activity;
+    private P2PWifiDirect activity;
 
-    public WifiClientBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel, P2PClient activity) {
+    public WifiDirectBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel, P2PWifiDirect activity) {
         super();
         this.manager = manager;
         this.channel = channel;
@@ -81,11 +81,14 @@ public class WifiClientBroadcastReceiver extends BroadcastReceiver {
 
                 activity.setNetworkToReadyState(wifiInfo, device);
                 activity.mostrarPanelInfo("Connection Status: Connected");
+                activity.activarBotonoes();
+
             }
             else {
 
                 activity.mostrarPanelInfo("Connection Status: Disconnected");
                 manager.cancelConnect(channel, null);
+                activity.desactivarBotones();
 
             }
             //activity.setClientStatus(networkState.isConnected());
