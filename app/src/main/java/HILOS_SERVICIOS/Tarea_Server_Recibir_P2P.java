@@ -74,7 +74,7 @@ public class Tarea_Server_Recibir_P2P extends AsyncTask {
                 len = inData.read(buffer);
                 timeF = System.currentTimeMillis();
 
-                tasaTransfer = ((1024f/(timeF - timeI))*1000)/1024f; //KB por segundo
+                tasaTransfer = ((1024f/(timeF - timeI))*1000f)/1024f; //KB por segundo
 
                 progreso = progreso + porcentaje;
                 publishProgress(progreso);
