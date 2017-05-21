@@ -354,6 +354,9 @@ public class P2PWifiDirect extends AppCompatActivity{
     }
 
     public void volver(View v){
+
+        //Unregister broadcast receiver
+        wifiManager.removeGroup(wifichannel,null);
         finish();
 
     }
