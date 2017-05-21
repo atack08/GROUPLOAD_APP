@@ -89,8 +89,10 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
                 len = inData.read(buffer);
                 timeF = System.currentTimeMillis();
 
+
                 tasaTransfer = ((1024f/(timeF - timeI))*1000f)/1024f; //KB por segundo
 
+                System.out.println("DIFERENCIA DE " + String.valueOf(timeF - timeI));
                 System.out.println("TASA DESCARGA: " + String.valueOf((1024f/(timeF - timeI))));
 
 
