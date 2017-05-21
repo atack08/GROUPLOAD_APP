@@ -145,10 +145,5 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
         }
     }
 
-    @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
-
-    }
 }
 

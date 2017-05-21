@@ -95,10 +95,6 @@ public class Tarea_Server_Recibir_P2P extends AsyncTask {
         return null;
     }
 
-    //MÉTODO QUE CONFIGURA LOS STREAMS DEPENDIENDO SI VA A RECIBIR O ENVIAR UN FICHERO
-    public void configurarStreams(){
-
-    }
 
     @Override
     protected void onPreExecute() {
@@ -140,10 +136,4 @@ public class Tarea_Server_Recibir_P2P extends AsyncTask {
 
     }
 
-    @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
-
-
-    }
 }
