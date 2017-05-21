@@ -72,6 +72,7 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
                 //CALCULAMOS PORCENTAJE
                 float porcentaje = (1024f * 100f) / sizeDescarga;
                 float progreso = 0;
+                float progresoAnterior = 0;
 
                 //CREAMOS STREAMS PARA EL FICHERO
                 FileInputStream inFile = new FileInputStream(fichero);
@@ -86,7 +87,11 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
                     outData.write(buffer,0,len);
 
                     progreso = progreso + porcentaje;
-                    publishProgress(progreso);
+
+                    if((int)progreso != (int)progresoAnterior)
+                        publishProgress(progreso);
+
+                    progresoAnterior = progreso;
                 }
 
                 //CERRAMOS STREAMS
