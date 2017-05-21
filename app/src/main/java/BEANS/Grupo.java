@@ -1,7 +1,5 @@
 package BEANS;
 
-
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -48,7 +46,7 @@ public class Grupo implements Serializable {
         for(Cliente c: listaClientes){
             this.participacion = this.participacion + c.getPorcentaje_descarga();
         }
-
+        
         if(participacion == 100)
             this.setEstado(COMPLETADO);
     }
@@ -57,6 +55,16 @@ public class Grupo implements Serializable {
     public synchronized void aniadirCliente(Cliente c){
         this.listaClientes.add(c);
         asignarParticipacion();
+    }
+    
+    //MÉTODO PARA BORRAR UN CLIENTE DEL GRUPO
+    public synchronized void borrarCliente(Cliente c){
+  
+    	if(this.listaClientes.contains(c)){
+    		
+    		this.listaClientes.remove(c);
+    		asignarParticipacion();
+    	}
     }
 
     //MÃ‰TODO PARA CAMBIAR EL PORCENTAJE DE DESCARGA A UN CLIENTE UNA VEZ YA UNIDO AL GRUPO

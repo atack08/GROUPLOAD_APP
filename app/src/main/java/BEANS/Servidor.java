@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 public class Servidor implements Serializable{
 
-    private String nombreServidor;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String nombreServidor;
     private String ipServidor;
     private String paisServidor;
 
