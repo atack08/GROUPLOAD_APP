@@ -117,6 +117,8 @@ public class Tarea_Server_Enviar_P2P extends AsyncTask{
 
         int progreso = (int)((float)values[0]);
 
+        System.out.println("PUBLICANDO: " + progreso);
+
         if(progreso == -1){
             pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");
             pd.show();

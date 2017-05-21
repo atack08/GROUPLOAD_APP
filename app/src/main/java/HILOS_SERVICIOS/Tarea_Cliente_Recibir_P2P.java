@@ -118,6 +118,8 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
 
         int progreso = (int)((float)values[0]);
 
+        System.out.println("PUBLICANDO: " + progreso);
+
         if(progreso == -1){
             pd.setMessage("Recibiendo: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");
             pd.show();
