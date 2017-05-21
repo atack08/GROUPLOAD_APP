@@ -26,11 +26,14 @@ public class Tarea_Unir_Ficheros extends AsyncTask {
     private ProgressDialog pd;
 
     private final File CARPETA_PUBLICA_DESCARGAS = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    private File ficheroResultante;
 
     private final int RECURSO_NO_CONCORDANTE = 0;
     private final int UNION_CORRECTA = 1;
     private final int STORAGE_FAIL = 2;
     private int result;
+
+
 
 
     public Tarea_Unir_Ficheros(ArrayList<String> listaRutas, UnirFicheros uf, ProgressDialog pd) {
@@ -56,13 +59,14 @@ public class Tarea_Unir_Ficheros extends AsyncTask {
                 //CALCULAMOS PORCENTAJE
                 float porcentaje = (1024f * 100f) / sizeDescarga;
                 float progreso = 0;
+                float progresoAnterior = 0;
 
                 //ABRIMOS STREAMS
                 FileInputStream inFile;
                 byte[] buffer = new byte[1024];
 
                 try {
-                    File ficheroResultante = new File(CARPETA_PUBLICA_DESCARGAS.getAbsolutePath() + "/" + nombreRecurso);
+                    ficheroResultante = new File(CARPETA_PUBLICA_DESCARGAS.getAbsolutePath() + "/" + nombreRecurso);
                     FileOutputStream outFile = new FileOutputStream(new File(CARPETA_PUBLICA_DESCARGAS.getAbsolutePath() + "/" + nombreRecurso));
                     int len;
 
@@ -75,13 +79,17 @@ public class Tarea_Unir_Ficheros extends AsyncTask {
                             outFile.write(buffer,0,len);
 
                             progreso = progreso + porcentaje;
-                            publishProgress(progreso);
+
+                            if((int)progreso != (int)progresoAnterior)
+                                publishProgress(progreso);
+
+                            progresoAnterior = progreso;
                         }
 
                         inFile.close();
                     }
                     publishProgress(100f);
-                    Thread.sleep(1000);
+                    Thread.sleep(3000);
                     outFile.close();
 
                     if(ficheroResultante.exists()){
@@ -151,9 +159,6 @@ public class Tarea_Unir_Ficheros extends AsyncTask {
         int progreso = (int)((float)values[0]);
         pd.setProgress(progreso);
 
-        if(progreso == 100)
-            pd.cancel();
-
     }
 
     @Override
@@ -174,6 +179,8 @@ public class Tarea_Unir_Ficheros extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
+
+        pd.cancel();
 
         switch (result){
             case RECURSO_NO_CONCORDANTE:

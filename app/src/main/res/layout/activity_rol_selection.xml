@@ -48,13 +48,6 @@
             android:onClick="unirseAGrupo"
             android:text="UNIRSE A GRUPO" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"
-            android:onClick="unirFicheros"
-            android:text="UNIR FICHEROS" />
 
         <Button
             android:layout_width="match_parent"

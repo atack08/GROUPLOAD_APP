@@ -209,6 +209,13 @@ public class ServerSelect extends AppCompatActivity {
 
     }
 
+    //MÉTODO QUE CAMBIA DE ACTIVIDAD CUANDO SE ELIGE CREAR UNIR FICHEROS
+    public void unirFicheros(View v){
+
+        Intent intent = new Intent(this, UnirFicheros.class);
+        startActivity(intent);
+    }
+
     public void salir(View v){
         this.finish();
     }

@@ -108,6 +108,7 @@ public class Descarga_partes extends AsyncTask{
                 //CALCULAMOS PORCENTAJE BARRA DE PROGRESO
                 float porcProgreso = (1024f*100f) / sizeDescarga;
                 float progreso = 0;
+                float progresoAnterior = 0;
 
                 //EMPEZAMOS A COPIAR DEL STREAM
                 int len;
@@ -115,7 +116,11 @@ public class Descarga_partes extends AsyncTask{
                     escritura.write(buffer,0,len);
 
                     progreso = progreso + porcProgreso;
-                    this.publishProgress(progreso);
+
+                    if((int)progreso != (int)progresoAnterior)
+                        publishProgress(progreso);
+
+                    progresoAnterior = progreso;
                 }
 
                 escritura.close();
