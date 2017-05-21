@@ -86,6 +86,7 @@ public class Tarea_Server_Enviar_P2P extends AsyncTask{
 
                 tasaTransfer = ((1024f/(timeF - timeI))*1000f)/1024f; //KB por segundo
 
+                System.out.println("DIFERENCIA DE " + timeF + " - " + timeI);
                 System.out.println("DIFERENCIA DE " + String.valueOf(timeF - timeI));
                 System.out.println("TASA DESCARGA: " + String.valueOf((1024f/(timeF - timeI))));
 
