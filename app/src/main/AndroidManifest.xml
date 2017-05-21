@@ -29,7 +29,8 @@
         <activity android:name=".CrearGrupo" />
         <activity android:name=".UnirseGrupo"
             android:screenOrientation="nosensor"/>
-        <activity android:name=".ConectarGrupo" />
+        <activity android:name=".ConectarGrupo"
+            android:screenOrientation="nosensor"/>
         <activity android:name=".UnirFicheros"
             android:screenOrientation="nosensor"/>
         <activity android:name=".P2PWifiDirect"
