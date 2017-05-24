@@ -32,7 +32,6 @@ public class Descarga_partes extends AsyncTask{
     private ProgressDialog pd;
     private String nomFile;
     private long timeDescarga;
-    private long timeParcial;
 
     private final int PUERTO_DESCARGA_PARTES = 1507;
     private final File CARPETA_DESCARGAS = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -107,28 +106,23 @@ public class Descarga_partes extends AsyncTask{
                 escritura =  new FileOutputStream(filePartes);
 
                 //CALCULAMOS PORCENTAJE BARRA DE PROGRESO
-                float porcProgreso = (1024f*100f) / sizeDescarga;
                 float progreso = 0;
                 float progresoAnterior = 0;
+                float progresoParcial;
 
                 //EMPEZAMOS A COPIAR DEL STREAM
                 //CALCULAMOS EL TIEMPO
                 long timeI = System.currentTimeMillis();
                 int len;
-                long timePI = System.currentTimeMillis();
-                long timePF;
 
                 while((len = inData.read(buffer)) > 0){
                     escritura.write(buffer,0,len);
 
-                    progreso = progreso + porcProgreso;
+                    progresoParcial = (len*100f)/sizeDescarga;
+                    progreso = progreso + progresoParcial;
 
-                    if((int)progreso != (int)progresoAnterior) {
-                        timePF = System.currentTimeMillis();
-                        timeParcial = timePF - timePI;
-                        timePI = timePF;
+                    if((int)progreso != (int)progresoAnterior)
                         publishProgress(progreso);
-                    }
 
                     progresoAnterior = progreso;
                 }
@@ -154,9 +148,10 @@ public class Descarga_partes extends AsyncTask{
 
         float sizeMegas = (sizeDescarga/1024f)/1024f;
         float timeSeconds = (timeDescarga/1000f);
+        float sizeMegabits = sizeMegas*8;
 
         cg.mostrarPanelInfo("Se descargaron las partes seleccionadas en la carpeta DESCARGAS de su dispositivo.\n" +
-                "\nTasa de descarga: " +  String.format("%.2f",(sizeMegas/timeSeconds)) + " MB/s");
+                "\n\nTasa de descarga: " +  String.format("%.2f",(sizeMegabits/timeSeconds)) + " Mbit/s");
 
         //EJECUTAMOS TAREA PARA REPINTAR LA TABLA DE CLIENTES DEL GRUPO
         Actualizar_Grupos ag = new Actualizar_Grupos(servidor,ususario,cg);
@@ -171,16 +166,12 @@ public class Descarga_partes extends AsyncTask{
         int p = (int)progreso;
         float sizeMegas = (sizeDescarga/1024f)/1024f;
 
-        //CALCULAMOS TASA DE DESCARGA
-        float tasaD = ((progreso*sizeMegas)/100f) / (timeParcial/1000f);
-
         if(p == -1){
             pd.setMessage("Recibiendo: " + nomFile + ", \nTamaño: " + String.format("%.2f",sizeMegas) + " MB");
             pd.show();
         }
         else{
-            pd.setMessage("Recibiendo: " + nomFile + ", \nTamaño: " + String.format("%.2f",sizeMegas) + " MB" +
-                    " \nVelocidad de descarga: " + String.format("%.2f",tasaD) + " MB/s");
+            pd.setMessage("Recibiendo: " + nomFile + ", \nTamaño: " + String.format("%.2f",sizeMegas) + " MB");
             pd.setProgress(p);
 
         }
