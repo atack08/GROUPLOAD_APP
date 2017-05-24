@@ -42,25 +42,23 @@ public class Subida_Recurso extends AsyncTask {
             //INICIAMOS LA CONEXIÓN
             conexion = new Socket(servidor.getIpServidor(), PUERTO_SUBIDA_RECURSO);
 
-            //MANDAMOS EL NOMBRE DEL GRUPO  AL SERVIDOR
-            DataOutputStream outObject = new DataOutputStream(conexion.getOutputStream());
-            outObject.writeUTF(grupo.getAlias());
+            //MANDAMOS EL NOMBRE DEL GRUPO Y EL RECURSO SELECCIONADO AL SERVIDOR
+            DataOutputStream outData = new DataOutputStream(conexion.getOutputStream());
+            outData.writeUTF(grupo.getAlias());
+            outData.writeUTF(torrentSeleccionado.getName());
 
             //CREAMOS BUFFER PARA LEER STREAM DEL FICHERO
             byte[] buffer = new byte[1024];
             FileInputStream lectura = new FileInputStream(torrentSeleccionado);
-
-            //ABRIMOS STREAM RED
-            DataOutputStream out = new DataOutputStream(conexion.getOutputStream());
-
             int len;
+
             while((len = lectura.read(buffer)) > 0){
-                out.write(buffer,0,len);
+                outData.write(buffer,0,len);
             }
 
             //CERRAMOS STREAM FICHERO
             lectura.close();
-
+            outData.close();
             conexion.close();
 
         } catch (IOException e) {

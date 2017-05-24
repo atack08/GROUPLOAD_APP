@@ -3,9 +3,7 @@ package HILOS_SERVICIOS;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Environment;
-
 import com.example.atack08.groupload_app.P2PWifiDirect;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,7 +35,6 @@ public class Tarea_Server_Recibir_P2P extends AsyncTask {
         try {
             server = new ServerSocket(PUERTO_ESCUCHA_P2P);
 
-            System.out.println("SERVIDOR ESCUCHANDO...");
             byte[] buffer =  new byte[1024];
 
             //PONEMOS EL SERVER A LA ESCUCHA
@@ -114,8 +111,6 @@ public class Tarea_Server_Recibir_P2P extends AsyncTask {
 
         int progreso = (int)((float)values[0]);
 
-        System.out.println("PUBLICANDO: " + progreso);
-
         if(progreso == -1){
             pd.setMessage("Recibiendo: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");
             pd.show();
@@ -125,8 +120,6 @@ public class Tarea_Server_Recibir_P2P extends AsyncTask {
             pd.setProgress(progreso);
 
         }
-
-
     }
 
     @Override

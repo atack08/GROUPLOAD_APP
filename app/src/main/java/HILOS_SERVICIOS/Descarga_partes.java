@@ -3,6 +3,9 @@ package HILOS_SERVICIOS;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.SystemClock;
+import android.widget.Toast;
+
 import com.example.atack08.groupload_app.ConectarGrupo;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,9 +18,6 @@ import BEANS.Grupo;
 import BEANS.Servidor;
 import BEANS.Usuario;
 
-/**
- * Created by atack08 on 13/5/17.
- */
 
 public class Descarga_partes extends AsyncTask{
 
@@ -30,6 +30,9 @@ public class Descarga_partes extends AsyncTask{
     private Socket conexion;
     private File filePartes;
     private ProgressDialog pd;
+    private String nomFile;
+    private long timeDescarga;
+    private long timeParcial;
 
     private final int PUERTO_DESCARGA_PARTES = 1507;
     private final File CARPETA_DESCARGAS = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -64,9 +67,7 @@ public class Descarga_partes extends AsyncTask{
             DataInputStream inSize = new DataInputStream(conexion.getInputStream());
             sizeDescarga =  inSize.readLong();
             //LEEMOS EL NOMBRE DEL FICHERO
-            String nomFile = inSize.readUTF();
-
-            System.out.println(nomFile);
+            nomFile = inSize.readUTF();
 
             //REALIZAMOS DESCARGA
             realizarDescarga(nomFile);
@@ -111,18 +112,28 @@ public class Descarga_partes extends AsyncTask{
                 float progresoAnterior = 0;
 
                 //EMPEZAMOS A COPIAR DEL STREAM
+                //CALCULAMOS EL TIEMPO
+                long timeI = System.currentTimeMillis();
                 int len;
+                long timePI = System.currentTimeMillis();
+                long timePF;
+
                 while((len = inData.read(buffer)) > 0){
                     escritura.write(buffer,0,len);
 
                     progreso = progreso + porcProgreso;
 
-                    if((int)progreso != (int)progresoAnterior)
+                    if((int)progreso != (int)progresoAnterior) {
+                        timePF = System.currentTimeMillis();
+                        timeParcial = timePF - timePI;
+                        timePI = timePF;
                         publishProgress(progreso);
+                    }
 
                     progresoAnterior = progreso;
                 }
-
+                long timeF = System.currentTimeMillis();
+                timeDescarga = timeF - timeI;
                 escritura.close();
 
 
@@ -140,7 +151,12 @@ public class Descarga_partes extends AsyncTask{
         super.onPostExecute(o);
 
         pd.cancel();
-        cg.mostrarPanelInfo("Se descargaron las partes seleccionadas en la carpeta DESCARGAS de su dispositivo.");
+
+        float sizeMegas = (sizeDescarga/1024f)/1024f;
+        float timeSeconds = (timeDescarga/1000f);
+
+        cg.mostrarPanelInfo("Se descargaron las partes seleccionadas en la carpeta DESCARGAS de su dispositivo.\n" +
+                "\nTasa de descarga: " +  String.format("%.2f",(sizeMegas/timeSeconds)) + " MB/s");
 
         //EJECUTAMOS TAREA PARA REPINTAR LA TABLA DE CLIENTES DEL GRUPO
         Actualizar_Grupos ag = new Actualizar_Grupos(servidor,ususario,cg);
@@ -151,8 +167,23 @@ public class Descarga_partes extends AsyncTask{
     @Override
     protected void onProgressUpdate(Object[] values) {
 
-        int progreso = (int)((float)values[0]);
-        pd.setProgress(progreso);
+        float progreso = (float)values[0];
+        int p = (int)progreso;
+        float sizeMegas = (sizeDescarga/1024f)/1024f;
+
+        //CALCULAMOS TASA DE DESCARGA
+        float tasaD = ((progreso*sizeMegas)/100f) / (timeParcial/1000f);
+
+        if(p == -1){
+            pd.setMessage("Recibiendo: " + nomFile + ", \nTamaño: " + String.format("%.2f",sizeMegas) + " MB");
+            pd.show();
+        }
+        else{
+            pd.setMessage("Recibiendo: " + nomFile + ", \nTamaño: " + String.format("%.2f",sizeMegas) + " MB" +
+                    " \nVelocidad de descarga: " + String.format("%.2f",tasaD) + " MB/s");
+            pd.setProgress(p);
+
+        }
 
     }
 

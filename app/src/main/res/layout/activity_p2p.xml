@@ -79,7 +79,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SALIR"
+            android:text="VOLVER"
             android:layout_gravity="center_horizontal"
             android:onClick="volver"
             android:layout_marginLeft="60dp"

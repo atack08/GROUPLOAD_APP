@@ -1,13 +1,8 @@
 package HILOS_SERVICIOS;
 
 import android.app.ProgressDialog;
-import android.net.wifi.p2p.WifiP2pDevice;
-import android.net.wifi.p2p.WifiP2pInfo;
 import android.os.AsyncTask;
-import android.os.SystemClock;
-
 import com.example.atack08.groupload_app.P2PWifiDirect;
-
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,10 +10,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-
-/**
- * Created by atack08 on 19/5/17.
- */
 
 public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
 
@@ -42,23 +33,17 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
         this.serverIP = serverIP;
         this.tasaTransfer = 0;
 
-        System.out.println("LLEGA Y EJECUTA BIEN EL CONSTRUCTOR");
-
-
     }
 
     @Override
     protected Object doInBackground(Object[] params) {
 
             try {
-                System.out.println("ENTRA AL FILE TRANSFER");
 
                 Socket conexion = new Socket();
                 conexion.bind(null);
 
                 conexion.connect((new InetSocketAddress(serverIP,PUERTO_CONEXION_WIFI_P2P)),500);
-
-                System.out.println("ESTABLECE LA CONEXION");
 
                 byte[] buffer =  new byte[1024];
 
@@ -126,8 +111,6 @@ public class Tarea_Cliente_Enviar_P2P extends AsyncTask {
         super.onProgressUpdate(values);
 
         int progreso = (int)((float)values[0]);
-
-        System.out.println("PUBLICANDO: " + progreso);
 
         if(progreso == -1){
             pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");

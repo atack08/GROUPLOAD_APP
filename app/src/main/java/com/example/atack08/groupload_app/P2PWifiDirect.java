@@ -199,7 +199,7 @@ public class P2PWifiDirect extends AppCompatActivity{
         wifiManager.discoverPeers(wifichannel, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
-                mostrarPanelInfo("BUSQUEDA REALIZADA CORRECTAMENTE.");
+                mostrarPanelInfo("INICIANDO BÚSQUEDA DE DISPOSITIVOS...");
 
             }
 

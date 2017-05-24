@@ -41,6 +41,7 @@ public class CrearGrupo extends AppCompatActivity {
     private File torrentSeleccionado;
     private Button botonSubirRecurso;
     private Grupo nuevoGrupo;
+    private String nombreRecursoSeleccionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,6 @@ public class CrearGrupo extends AppCompatActivity {
 
     }
 
-
     //MÉTODO QUE LISTA LOS FICHEROS TORRENT DE LA CARPETA DESCARGAS DE LA MEMORIA EXTERNA
     public void rellenarFicherosTorrent(){
 
@@ -72,7 +72,6 @@ public class CrearGrupo extends AppCompatActivity {
         String estado = Environment.getExternalStorageState();
 
         if(estado.equals(Environment.MEDIA_MOUNTED) || estado.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
-
 
             File rutaFichero = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
@@ -82,7 +81,6 @@ public class CrearGrupo extends AppCompatActivity {
                     return name.toLowerCase().endsWith(".torrent");
                 }
             });
-
 
             nombresTorrents = new ArrayList<>();
 
@@ -104,13 +102,13 @@ public class CrearGrupo extends AppCompatActivity {
 
         String nombreGrupo = editNombreGrupo.getText().toString();
         String passGrupo = editPassGrupo.getText().toString();
-        String nombreR = (String)spinnerRecursos.getSelectedItem();
+        nombreRecursoSeleccionado = (String)spinnerRecursos.getSelectedItem();
 
         if(nombreGrupo.equals("") || passGrupo.equals(""))
             mostrarPanelError("Rellene todo los campos del formulario");
         else{
             //Si no se selecciono recurso
-            if(nombreR.equals(""))
+            if(nombreRecursoSeleccionado.equals(""))
                 mostrarPanelError("No seleccionó ningún recurso");
             else{
 
@@ -118,27 +116,34 @@ public class CrearGrupo extends AppCompatActivity {
                 //RESCATAMOS EL FILE A PARTIR DEL NOMBRE
 
                 for(File f: listaTorrents){
-                    if(f.getName().equalsIgnoreCase(nombreR)){
+                    if(f.getName().equalsIgnoreCase(nombreRecursoSeleccionado)){
                         torrentSeleccionado = f;
                         break;
                     }
                 }
 
                 //CREAMOS LA INSTANCIA DE GRUPO QUE ENVIAREMOS AL SERVIDOR
-                nuevoGrupo = new Grupo(nombreGrupo,passGrupo,nombreR);
+                nuevoGrupo = new Grupo(nombreGrupo,passGrupo,nombreRecursoSeleccionado);
 
                 //INICIAMOS LA TAREA PARA ENVIAR EL GRUPO AL SERVIDOR
                 Creacion_Grupo tarea_creacion= new Creacion_Grupo(servidor,nuevoGrupo,torrentSeleccionado,this);
                 tarea_creacion.execute();
             }
         }
-
-
     }
 
     //MÉTODO PARA SUBIR EL RECURSO DEL GRUPO
     public void subirRecurso(View v){
 
+        nombreRecursoSeleccionado = (String)spinnerRecursos.getSelectedItem();
+        for(File f: listaTorrents){
+            if(f.getName().equalsIgnoreCase(nombreRecursoSeleccionado)){
+                torrentSeleccionado = f;
+                break;
+            }
+        }
+
+        Toast.makeText(this, nombreRecursoSeleccionado, Toast.LENGTH_SHORT).show();
         Subida_Recurso tarea_subida = new Subida_Recurso(servidor,nuevoGrupo, torrentSeleccionado,this);
         tarea_subida.execute();
     }
@@ -159,9 +164,7 @@ public class CrearGrupo extends AppCompatActivity {
                     }
                 });
 
-
         dialog.show();
-
     }
 
     //MÉTODO PARA MOSTRAR INFO
@@ -178,7 +181,6 @@ public class CrearGrupo extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
 
         dialog.show();
 

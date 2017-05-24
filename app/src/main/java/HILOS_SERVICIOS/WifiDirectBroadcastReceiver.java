@@ -29,7 +29,7 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
         this.channel = channel;
         this.activity = activity;
 
-        activity.mostrarPanelInfo("Client Broadcast receiver created");
+        activity.mostrarPanelInfo("Client Broadcast receiver creado.");
 
     }
 
@@ -43,17 +43,17 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
             int state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1);
 
             if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
-                activity.mostrarPanelInfo("Wifi Direct is enabled");
+                activity.mostrarPanelInfo("Wifi Direct está disponible.");
             }
             else {
-                activity.mostrarPanelError("Wifi Direct is not enabled");
+                activity.mostrarPanelError("Wifi Direct no está disponible.");
             }
 
         }
         else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
             //This broadcast is sent when status of in range peers changes. Attempt to get current list of peers.
 
-            activity.mostrarPanelInfo("BUSCANDO DISPOSITIVOS...");
+            activity.mostrarPanelInfo("DISPOSITIVOS ENCONTRADOS...");
 
             manager.requestPeers(channel, new WifiP2pManager.PeerListListener() {
 
@@ -80,20 +80,18 @@ public class WifiDirectBroadcastReceiver extends BroadcastReceiver {
             if(networkState.isConnected()) {
 
                 activity.setNetworkToReadyState(wifiInfo, device);
-                activity.mostrarPanelInfo("Connection Status: Connected");
+                activity.mostrarPanelInfo("Estado de la conexión: CONECTADO");
                 activity.activarBotonoes();
 
             }
             else {
 
-                activity.mostrarPanelInfo("Connection Status: Disconnected");
+                activity.mostrarPanelInfo("Estado de la conexión: DESCONECTADO");
                 manager.cancelConnect(channel, null);
                 activity.desactivarBotones();
 
             }
-            //activity.setClientStatus(networkState.isConnected());
 
-            // Respond to new connection or disconnections
         }
         else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
             // Respond to this device's wifi state changing

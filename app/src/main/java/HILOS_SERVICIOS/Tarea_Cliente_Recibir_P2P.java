@@ -1,26 +1,16 @@
 package HILOS_SERVICIOS;
 
 import android.app.ProgressDialog;
-import android.net.wifi.p2p.WifiP2pDevice;
-import android.net.wifi.p2p.WifiP2pInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
-
 import com.example.atack08.groupload_app.P2PWifiDirect;
-
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-
-/**
- * Created by atack08 on 21/5/17.
- */
 
 public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
     private final int PUERTO_CONEXION_WIFI_P2P = 8988;
@@ -32,14 +22,11 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
     private final File CARPETA_PUBLICA_DESCARGAS = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
 
-
     public Tarea_Cliente_Recibir_P2P(P2PWifiDirect p2PWifiDirect, ProgressDialog pd, InetAddress serverIP) {
 
         this.p2PWifiDirect = p2PWifiDirect;
         this.pd = pd;
         this.serverIP = serverIP;
-
-        System.out.println("LLEGA Y EJECUTA BIEN EL CONSTRUCTOR");
 
     }
 
@@ -47,14 +34,11 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
     protected Object doInBackground(Object[] params) {
 
         try {
-            System.out.println("ENTRA AL FILE TRANSFER");
 
             Socket conexion = new Socket();
             conexion.bind(null);
 
             conexion.connect((new InetSocketAddress(serverIP,PUERTO_CONEXION_WIFI_P2P)),500);
-
-            System.out.println("ESTABLECE LA CONEXION");
 
             byte[] buffer =  new byte[1024];
 
@@ -122,8 +106,6 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
         super.onProgressUpdate(values);
 
         int progreso = (int)((float)values[0]);
-
-        System.out.println("PUBLICANDO: " + progreso);
 
         if(progreso == -1){
             pd.setMessage("Recibiendo: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");

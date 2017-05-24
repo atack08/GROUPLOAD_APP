@@ -1,24 +1,15 @@
 package HILOS_SERVICIOS;
 
 import android.app.ProgressDialog;
-import android.net.wifi.p2p.WifiP2pInfo;
 import android.os.AsyncTask;
-import android.os.Environment;
-
 import com.example.atack08.groupload_app.P2PWifiDirect;
-
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * Created by atack08 on 21/5/17.
- */
 
 public class Tarea_Server_Enviar_P2P extends AsyncTask{
 
@@ -47,7 +38,6 @@ public class Tarea_Server_Enviar_P2P extends AsyncTask{
         try {
             server = new ServerSocket(PUERTO_ESCUCHA_P2P);
 
-            System.out.println("SERVIDOR ESCUCHANDO...");
             byte[] buffer =  new byte[1024];
 
             //PONEMOS EL SERVER A LA ESCUCHA
@@ -121,8 +111,6 @@ public class Tarea_Server_Enviar_P2P extends AsyncTask{
     protected void onProgressUpdate(Object[] values) {
 
         int progreso = (int)((float)values[0]);
-
-        System.out.println("PUBLICANDO: " + progreso);
 
         if(progreso == -1){
             pd.setMessage("Enviando: " + nomFile + ", " + String.valueOf(Float.valueOf((sizeDescarga/1024)/1024)) + " MB.");
