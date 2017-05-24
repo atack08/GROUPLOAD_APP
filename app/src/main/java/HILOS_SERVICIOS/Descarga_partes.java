@@ -151,7 +151,7 @@ public class Descarga_partes extends AsyncTask{
         float sizeMegabits = sizeMegas*8;
 
         cg.mostrarPanelInfo("Se descargaron las partes seleccionadas en la carpeta DESCARGAS de su dispositivo.\n" +
-                "\n\nTasa de descarga: " +  String.format("%.2f",(sizeMegabits/timeSeconds)) + " Mbit/s");
+                "\n\nVelocidad de descarga: " +  String.format("%.2f",(sizeMegabits/timeSeconds)) + " mb/s");
 
         //EJECUTAMOS TAREA PARA REPINTAR LA TABLA DE CLIENTES DEL GRUPO
         Actualizar_Grupos ag = new Actualizar_Grupos(servidor,ususario,cg);

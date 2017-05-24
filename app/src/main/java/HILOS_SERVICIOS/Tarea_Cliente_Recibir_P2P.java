@@ -19,6 +19,7 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
     private ProgressDialog pd;
     private long sizeDescarga;
     private InetAddress serverIP;
+    private long timeDescarga;
     private final File CARPETA_PUBLICA_DESCARGAS = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
 
@@ -49,10 +50,10 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
             nomFile = inData.readUTF();
             sizeDescarga = inData.readLong();
 
-            //CALCULAMOS PORCENTAJE
-            float porcentaje = (1024f * 100f) / sizeDescarga;
+            //CALCULAMOS PORCENTAJE BARRA DE PROGRESO
             float progreso = 0;
             float progresoAnterior = 0;
+            float progresoParcial;
 
             //CREAMOS STREAMS PARA EL FICHERO
             FileOutputStream outFile = new FileOutputStream(new File(CARPETA_PUBLICA_DESCARGAS.getAbsolutePath() + "/" + nomFile));
@@ -60,13 +61,16 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
             //CUANDO HAY UNA CONEXIÓN ABRIMOS EL DIALOGO DE PROGRESO
             publishProgress(-1f);
 
-            //PASAMOS A LEER EL FICHERO
-            int len ;
+            //EMPEZAMOS A COPIAR DEL STREAM
+            //CALCULAMOS EL TIEMPO
+            long timeI = System.currentTimeMillis();
+            int len;
 
             while((len = inData.read(buffer)) > 0){
                 outFile.write(buffer,0,len);
 
-                progreso = progreso + porcentaje;
+                progresoParcial = (len*100f)/sizeDescarga;
+                progreso = progreso + progresoParcial;
 
                 if((int)progreso != (int)progresoAnterior)
                     publishProgress(progreso);
@@ -74,6 +78,8 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
                 progresoAnterior = progreso;
 
             }
+            long timeF = System.currentTimeMillis();
+            timeDescarga = timeF - timeI;
 
             //CERRAMOS STREAMS
             outFile.close();
@@ -123,7 +129,14 @@ public class Tarea_Cliente_Recibir_P2P extends AsyncTask {
         super.onPostExecute(o);
 
         pd.cancel();
-        p2PWifiDirect.mostrarPanelInfo("Se completó la tranferencia de ficheros.");
+
+        float sizeMegas = (sizeDescarga/1024f)/1024f;
+        float timeSeconds = (timeDescarga/1000f);
+        float sizeMegabits = sizeMegas*8;
+
+
+        p2PWifiDirect.mostrarPanelInfo("Se completó la transferencia de ficheros.\n" +
+                "\n\nVelocidad de descarga: " +  String.format("%.2f",(sizeMegabits/timeSeconds)) + " mb/s");
     }
 
 }
